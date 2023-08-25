@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const current = Math.floor(Math.random() * 5);
 
-  //TODO make videos go i sequel
+  //TODO make videos go in sequel
   return (
     <section className={classes.container}>
       <video
