@@ -1,0 +1,48 @@
+@import "../../../../styles/variables.scss";
+@import "../../../../styles/mixins.scss";
+
+.container {
+  @include textStyle($main-font, 20px, 400, $grey);
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  position: relative;
+  background: none;
+
+  .search_txt {
+    padding: 5px 0 5px 0;
+    width: 0px;
+    background: $grey;
+    @include textStyle($main-font, 20px, 500, $grey-dark);
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  .icon {
+    @include textStyle($main-font, 20px, 400, $grey);
+    background: none;
+    position: absolute;
+    z-index: 2;
+    color: $grey;
+    top: 50%;
+    transform: translateY(-40%);
+    right: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    .search_txt {
+      width: 225px;
+      padding: 5px 30px 5px 10px;
+      opacity: 1;
+    }
+
+    .icon {
+      color: $grey-dark;
+    }
+  }
+}

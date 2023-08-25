@@ -1,0 +1,32 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: 70px 0;
+
+  h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    @include textStyle($body-font-3, 36px, 800, $grey-dark);
+    letter-spacing: 8px;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 35px;
+      background: black;
+    }
+  }
+
+  h3 {
+    @include textStyle($main-font, 20px, 400, $grey-dark);
+    letter-spacing: 5px;
+  }
+}

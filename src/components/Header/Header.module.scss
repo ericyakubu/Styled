@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  top: 0;
+  position: fixed;
+
+  padding: 20px 10vw;
+  background-color: $grey-dark;
+  z-index: 1000;
+}
+
+.logo {
+  @include textStyle($main-font, 24px, 600, $grey);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}

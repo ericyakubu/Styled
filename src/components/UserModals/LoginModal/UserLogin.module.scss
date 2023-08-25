@@ -1,0 +1,82 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/variables.scss";
+
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba($color: #000000, $alpha: 0.5);
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 350px;
+  min-height: 200px;
+  padding: 20px 40px;
+
+  background: $grey;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  h4 {
+    margin: 0 auto 20px;
+    @include textStyle($main-font, 24px, 600, $brown-dark);
+  }
+
+  label {
+    margin-bottom: 5px;
+    @include textStyle($main-font, 16px, 500, $brown);
+
+    &:last-of-type {
+      margin-top: 20px;
+    }
+  }
+
+  .input {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background: $body-background;
+  }
+
+  p {
+    @include textStyle($main-font, 12px, 500, red);
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+
+    .forgot_pas,
+    .sign_up,
+    .login {
+      @include textStyle($main-font, 16px, 500, $brown-dark);
+    }
+  }
+}
+
+.forgot_pas {
+  margin-right: auto;
+  background: none;
+  text-decoration: underline;
+}
+
+.sign_up,
+.login {
+  padding: 10px 15px;
+}
+
+.sign_up {
+  margin-left: 30px;
+}

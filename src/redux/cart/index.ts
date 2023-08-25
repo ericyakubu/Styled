@@ -1,0 +1,74 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { CartItemType } from "../../types";
+
+interface initialStateType {
+  items: CartItemType[];
+  amount: number;
+  totalPrice: number;
+  totalQnty: number;
+  showCart: boolean;
+}
+
+const initialState: initialStateType = {
+  items: [],
+  amount: 0,
+  totalPrice: 0,
+  totalQnty: 0,
+  showCart: false,
+};
+
+export const cart = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    setShowCart: (state) => {
+      state.showCart = !state.showCart;
+    },
+    addToCart: (state, action) => {
+      //TODO add check for doubles here
+      state.items = [...state.items, ...action.payload];
+      let newPrice: number = 0;
+
+      action.payload.forEach((item: CartItemType) => {
+        state.totalQnty += item.quantity;
+        newPrice += item.price;
+      });
+
+      state.totalPrice = Number(newPrice.toFixed(2));
+    },
+    increaseQuantity: (state, action) => {
+      let newPrice: number = 0;
+
+      const index = state.items.findIndex(
+        (item) =>
+          item.name === action.payload.name && item.size === action.payload.size
+      );
+      state.items[index].quantity++;
+      state.totalQnty++;
+
+      newPrice = state.totalPrice + action.payload.price;
+      state.totalPrice = Number(newPrice.toFixed(2));
+    },
+    decreaseQuantity: (state, action) => {
+      let newPrice: number = 0;
+      const index = state.items.findIndex(
+        (item) =>
+          item.name === action.payload.name && item.size === action.payload.size
+      );
+      const newQnty = state.items[index].quantity - 1;
+      if (newQnty > 0) {
+        state.items[index].quantity--;
+      } else {
+        state.items.splice(index, 1);
+      }
+      state.totalQnty--;
+      newPrice = state.totalPrice - action.payload.price;
+      state.totalPrice = Number(newPrice.toFixed(2));
+    },
+  },
+});
+
+export const { setShowCart, addToCart, increaseQuantity, decreaseQuantity } =
+  cart.actions;
+
+export default cart.reducer;

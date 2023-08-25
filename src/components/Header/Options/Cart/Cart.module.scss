@@ -1,0 +1,29 @@
+@import "../../../../styles/variables.scss";
+@import "../../../../styles/mixins.scss";
+
+.cart {
+  @include textStyle($main-font, 20px, 400, $grey);
+  line-height: 1;
+  text-transform: capitalize;
+  text-decoration: none;
+  letter-spacing: 1px;
+  position: relative;
+  background: none;
+
+  .qnty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $body-font;
+    font-size: 14px;
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(70%, -70%);
+    background: red;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  }
+}

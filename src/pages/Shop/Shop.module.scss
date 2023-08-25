@@ -1,0 +1,18 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  padding: 0 min(100px, 10vw);
+  .title {
+    text-align: center;
+    @include textStyle($main-font, 20px, 700, $brown-dark);
+    letter-spacing: 10px;
+    margin: 80px 0;
+  }
+
+  .main {
+    display: flex;
+    // justify-content: space-between;
+    gap: 25px;
+  }
+}

@@ -1,0 +1,19 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.links {
+  display: flex;
+  gap: 50px;
+
+  a {
+    @include textStyle($main-font, 16px, 400, $grey);
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  .active {
+    color: $white;
+    font-weight: 500;
+  }
+}

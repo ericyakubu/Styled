@@ -1,0 +1,135 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.footer {
+  margin-top: 55px;
+  background: $grey-dark;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 50px;
+
+  .main {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // width: 100%;
+    h3 {
+      text-align: center;
+      text-transform: uppercase;
+      @include textStyle($main-font, 15px, 300, $grey);
+      margin-bottom: 20px;
+    }
+  }
+
+  .socials {
+    div {
+      display: flex;
+      gap: 15px;
+      font-size: 20px;
+      width: 170px;
+      justify-content: center;
+
+      a {
+        text-decoration: none;
+        color: $grey-light;
+        transition: all 0.2s ease;
+        &:hover {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .subscribe,
+  .connect {
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .subscribe {
+    input {
+      width: 100%;
+      min-width: 300px;
+      color: $white;
+      padding: 10px 30px;
+      background: #535151;
+      transition: all 0.3s ease;
+      @include textStyle($main-font, 13px, 400, $white);
+
+      &::-webkit-input-placeholder {
+        @include textStyle($main-font, 13px, 400, $white);
+      }
+
+      &::-moz-placeholder {
+        @include textStyle($main-font, 13px, 400, $white);
+      }
+
+      &:-ms-input-placeholder {
+        @include textStyle($main-font, 13px, 400, $white);
+      }
+
+      &::-ms-input-placeholder {
+        @include textStyle($main-font, 13px, 400, $white);
+      }
+
+      &::placeholder {
+        @include textStyle($main-font, 13px, 400, $white);
+      }
+
+      &:hover {
+        background: rgba(200, 200, 200, 0.5);
+      }
+    }
+
+    button {
+      padding: 10px 0;
+      background: $grey-light;
+      @include textStyle($main-font, 13px, 400, $grey-dark);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $white;
+      }
+    }
+  }
+
+  .connect {
+    a {
+      @include textStyle($main-font, 13px, 400, $grey-light);
+      text-align: center;
+      transition: all 0.2s ease;
+      &:hover {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .bottom {
+    text-align: center;
+    margin-top: 85px;
+    @include textStyle($main-font, 13px, 400, $grey-light);
+    letter-spacing: 3px;
+
+    a {
+      @include textStyle($main-font, 13px, 500, $grey-light);
+      letter-spacing: 3px;
+      text-decoration: underline;
+      transition: all 0.3s ease;
+      &:hover {
+        font-size: 16px;
+      }
+    }
+  }
+}

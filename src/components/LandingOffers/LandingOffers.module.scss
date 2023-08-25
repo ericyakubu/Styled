@@ -1,0 +1,8 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

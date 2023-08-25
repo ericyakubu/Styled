@@ -1,0 +1,42 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 75px 0 100px;
+}
+
+.pagination {
+  &_btn {
+    padding: 5px 10px;
+    border: 1px solid $grey;
+    border-radius: 3px;
+    box-shadow: $shadow-2px;
+    transition: all 0.3s ease;
+
+    &:last-of-type {
+      margin-left: 10px;
+    }
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      box-shadow: $shadow-5px;
+    }
+  }
+}
+
+.current_page {
+  background: $grey-dark;
+  color: $white;
+}
+
+.disabled {
+  pointer-events: none;
+  background: $grey-alt;
+  opacity: 0.5;
+}

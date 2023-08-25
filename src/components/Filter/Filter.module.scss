@@ -1,0 +1,112 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  min-width: 200px;
+
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    // top: 310px;
+    top: 100px;
+  }
+
+  .title,
+  section {
+    &::after {
+      margin: 25px 0;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: $grey;
+    }
+  }
+
+  .title {
+    @include textStyle($main-font, 26px, 500, $brown-dark);
+  }
+
+  .sub_title {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @include textStyle($main-font, 16px, 400, $brown-dark);
+
+    svg {
+      font-size: 20px;
+      transition: all 0.5s ease;
+    }
+  }
+}
+
+.price_inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+  height: 0;
+
+  margin-top: 0;
+
+  transition: all 0.4s ease;
+
+  input {
+    transition: all 0.4s ease;
+    position: relative;
+    padding: 0 0 0 20px;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    // background: $grey-light;
+    // border-radius: 5%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-2px;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      display: none;
+    }
+  }
+}
+
+.categories,
+.sizes {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  padding-left: 10px;
+}
+.category,
+.size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  @include textStyle($body-font, 15px, 400, $brown-dark);
+}
+.category {
+  text-transform: capitalize;
+}
+.size {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hide {
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.show {
+  height: auto;
+  opacity: 1;
+
+  margin-top: 10px;
+}

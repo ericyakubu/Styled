@@ -1,0 +1,14 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  justify-items: right;
+  width: 100%;
+  gap: 10px;
+
+  &_main {
+    width: 100%;
+  }
+}

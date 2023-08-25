@@ -1,0 +1,17 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+table {
+  width: 100%;
+
+  th {
+    width: 25%;
+  }
+
+  td {
+    text-align: center;
+  }
+}
+
+.purchase {
+}

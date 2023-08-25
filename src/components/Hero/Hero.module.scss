@@ -1,0 +1,53 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  video {
+    min-width: 100vw;
+    min-height: 650px;
+    width: 100vw;
+    height: 650px;
+    object-fit: cover;
+  }
+
+  .banner {
+    padding: 35px 75px 45px;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    display: flex;
+    gap: 35px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &_txt {
+      @include textStyle($body-font-3, 55px, 700, $grey-dark);
+      letter-spacing: 3px;
+      white-space: nowrap;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    &_btn {
+      padding: 10px 50px;
+      background: $grey-dark;
+      letter-spacing: 2px;
+      @include textStyle($main-font, 18px, 400, $white);
+    }
+  }
+
+  .bottom {
+    @include textStyle($main-font, 13px, 500, $grey-dark);
+    letter-spacing: 3px;
+    padding: 15px 0;
+    background: $grey-light;
+    text-align: center;
+  }
+}

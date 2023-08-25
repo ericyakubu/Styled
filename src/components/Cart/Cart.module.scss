@@ -1,0 +1,171 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart_main,
+.options,
+.purchase {
+  width: 40vw;
+  min-width: 40vw;
+}
+
+.cart_main {
+  background: $grey-light;
+  // height: 100vh;
+  // max-height: 100vh;
+
+  // overflow-y: hidden;
+  // position: fixed;
+}
+
+.list {
+  display: flex;
+  background: $grey-light;
+  flex-direction: column;
+  position: relative;
+  gap: 24px;
+  padding: 70px 10% 70px 5%;
+  // overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  position: relative;
+  gap: 15px;
+
+  &_img {
+    width: 130px;
+    height: 170px;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  &_details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include textStyle($main-font, 20px, 500, $brown-dark);
+  }
+
+  &_name {
+    font-size: 22px;
+  }
+
+  &_price {
+    font-size: 20px;
+  }
+
+  &_size {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    span {
+      text-transform: uppercase;
+      font-size: 18px;
+      // letter-spacing: 1px;
+    }
+  }
+
+  &_quantity {
+    margin: 0 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    @include textStyle($main-font, 16px, 500, $brown-dark);
+
+    &_controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      font-family: $body-font;
+
+      button {
+        background: $grey-light;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        border-radius: 10%;
+        box-shadow: $shadow-2px;
+        color: $brown;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0);
+
+        &:hover {
+          box-shadow: $shadow-4px;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    width: calc(100% + 10px);
+    height: 1px;
+    position: absolute;
+    background: rgb(0, 0, 0, 0.1);
+    bottom: -12px;
+    left: -5px;
+    box-shadow: 0px 4px 8px rgba(171, 190, 209, 1);
+  }
+}
+
+.options,
+.purchase {
+  position: fixed;
+  // width: 100%;
+  z-index: 1111;
+  display: flex;
+  // padding: 0 10% 0 5%;
+  right: -17px;
+  // width: 100%;
+  // max-width: 40vw;
+  background: $body-background;
+  align-items: center;
+  height: 60px;
+}
+
+.options {
+  top: 0;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 40px 10px 0;
+
+  button {
+    font-size: 30px;
+    background: none;
+  }
+}
+
+.purchase {
+  bottom: 0;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    padding: 10px 20px;
+    @include textStyle($main-font, 20px, 500, $grey-light);
+    background: $brown-dark;
+  }
+}

@@ -1,0 +1,70 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 17px;
+
+  .label {
+    @include textStyle($main-font, 26px, 500, $brown-dark);
+  }
+
+  .sort,
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    button {
+      @include textStyle($main-font, 16px, 400, $brown-dark);
+    }
+  }
+
+  .main_btn {
+    background: $white;
+    height: 40px;
+    width: 225px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $grey-dark;
+  }
+
+  .sort {
+    position: relative;
+  }
+
+  .options {
+    position: absolute;
+    top: 40px;
+    background: $white;
+    width: 100%;
+    padding: 10px 0;
+    box-shadow: $shadow-6px;
+    z-index: 2;
+  }
+
+  .shadow {
+    box-shadow: $shadow-6px;
+  }
+
+  .option {
+    background: none;
+    width: 100%;
+    height: 40px;
+    text-align: left;
+    padding: 0 25px;
+
+    &:hover {
+      background: $grey;
+    }
+  }
+
+  .selected {
+    background: $grey;
+  }
+}
