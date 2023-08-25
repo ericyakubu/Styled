@@ -25,16 +25,26 @@ export const cart = createSlice({
       state.showCart = !state.showCart;
     },
     addToCart: (state, action) => {
-      //TODO add check for doubles here
-      state.items = [...state.items, ...action.payload];
       let newPrice: number = 0;
 
-      action.payload.forEach((item: CartItemType) => {
-        state.totalQnty += item.quantity;
-        newPrice += item.price;
-      });
+      action.payload.forEach((newItem: CartItemType) => {
+        const found: CartItemType | undefined = state.items.find(
+          (oldItem) =>
+            oldItem.name === newItem.name && oldItem.size === newItem.size
+        );
 
-      state.totalPrice = Number(newPrice.toFixed(2));
+        if (found) {
+          const index = state.items.indexOf(found);
+          found.quantity++;
+          state.items.splice(index, 1, found);
+        } else {
+          state.items = [...state.items, newItem];
+        }
+
+        state.totalQnty++;
+        newPrice += newItem.price;
+        state.totalPrice = Number(newPrice.toFixed(2));
+      });
     },
     increaseQuantity: (state, action) => {
       let newPrice: number = 0;

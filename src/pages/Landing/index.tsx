@@ -4,9 +4,16 @@ import Hero from "../../components/Hero";
 import LandingOffers from "../../components/LandingOffers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import { useAppDispatch } from "../../redux/hooks";
+import { removeOldProduct } from "../../redux/products";
 
 const Landing: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { products } = useSelector((state: RootState) => state.products);
+
+  useEffect(() => {
+    dispatch(removeOldProduct());
+  }, []);
 
   useEffect(() => {
     // console.log(products);

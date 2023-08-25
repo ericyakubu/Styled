@@ -10,14 +10,7 @@ const Hero: React.FC = () => {
   //TODO make videos go in sequel
   return (
     <section className={classes.container}>
-      <video
-        src={VideoUrl[current]}
-        muted
-        autoPlay
-        loop
-        // onEnded={handleVideoEnd}
-        ref={videoRef}
-      ></video>
+      <video src={VideoUrl[current]} muted autoPlay loop ref={videoRef}></video>
       <div className={classes.banner}>
         <span className={classes.banner_txt}>Fall & Winter</span>
         <Link to={"/shop"} className={classes.banner_btn}>

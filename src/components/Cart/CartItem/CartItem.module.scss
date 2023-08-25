@@ -1,44 +1,5 @@
-@import "../../styles/mixins.scss";
-@import "../../styles/variables.scss";
-
-.container {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.5);
-  left: 0;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cart_main,
-.options,
-.purchase {
-  width: 40vw;
-  min-width: 40vw;
-}
-
-.cart_main {
-  background: $grey-light;
-  // height: 100vh;
-  // max-height: 100vh;
-
-  // overflow-y: hidden;
-  // position: fixed;
-}
-
-.list {
-  display: flex;
-  background: $grey-light;
-  flex-direction: column;
-  position: relative;
-  gap: 24px;
-  padding: 70px 10% 70px 5%;
-  // overflow-y: auto;
-}
+@import "../../../styles/mixins.scss";
+@import "../../../styles/variables.scss";
 
 .item {
   display: flex;
@@ -128,50 +89,5 @@
     bottom: -12px;
     left: -5px;
     box-shadow: 0px 4px 8px rgba(171, 190, 209, 1);
-  }
-}
-
-.options,
-.purchase {
-  position: fixed;
-  // width: 100%;
-  z-index: 1111;
-  display: flex;
-  // padding: 0 10% 0 5%;
-  right: -17px;
-  // width: 100%;
-  // max-width: 40vw;
-  background: $body-background;
-  align-items: center;
-  height: 60px;
-}
-
-.options {
-  top: 0;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 10px 40px 10px 0;
-
-  button {
-    font-size: 30px;
-    background: none;
-  }
-}
-
-.purchase {
-  bottom: 0;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 30px;
-  // @include textStyle($main-font, 20px, 500, $grey-light)
-  button {
-    padding: 10px 20px;
-    @include textStyle($main-font, 20px, 500, $grey-light);
-    background: $brown-dark;
-  }
-
-  span {
-    @include textStyle($main-font, 20px, 500, $brown-dark);
-    margin-right: auto;
   }
 }

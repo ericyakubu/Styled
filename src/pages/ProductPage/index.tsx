@@ -24,27 +24,26 @@ const ProductPage: React.FC = () => {
   const { id } = useParams();
 
   const handleAddToCartHolder = (size: string) => {
-    if (product) {
-      const newCartItem: CartItemType = {
-        id: v4(),
-        imageCover: product.imageCover,
-        name: product.name,
-        price: finalPrice,
-        quantity: 1,
-        size,
-      };
+    if (!product) return;
+    const newCartItem: CartItemType = {
+      id: v4(),
+      imageCover: product.imageCover,
+      name: product.name,
+      price: finalPrice,
+      quantity: 1,
+      size,
+    };
 
-      const find = cart.find((item) => item.size === newCartItem.size);
+    const find = cart.find((item) => item.size === newCartItem.size);
 
-      if (find) {
-        const filtered = cart.filter((item) => item.size !== find.size);
-        const filteredSizes = sizesChosen.filter((size) => size !== find.size);
-        setCart(filtered);
-        setSizesChosen(filteredSizes);
-      } else {
-        setCart((prev) => [...prev, newCartItem]);
-        setSizesChosen((prev) => [...prev, newCartItem.size]);
-      }
+    if (find) {
+      const filtered = cart.filter((item) => item.size !== find.size);
+      const filteredSizes = sizesChosen.filter((size) => size !== find.size);
+      setCart(filtered);
+      setSizesChosen(filteredSizes);
+    } else {
+      setCart((prev) => [...prev, newCartItem]);
+      setSizesChosen((prev) => [...prev, newCartItem.size]);
     }
   };
 
