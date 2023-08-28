@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserType } from "../../types";
+import { loginUser } from "./asyncActions";
 
 interface initialStateType {
   isLoggedIn: boolean;
@@ -10,7 +11,7 @@ interface initialStateType {
 }
 
 const initialState: initialStateType = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   userModals: false,
   loginForm: "login",
   token: null,
@@ -27,6 +28,11 @@ export const user = createSlice({
     setLoginForm: (state, action) => {
       state.loginForm = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      (state.isLoggedIn = true), console.log(action.payload);
+    });
   },
 });
 

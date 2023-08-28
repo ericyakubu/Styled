@@ -37,6 +37,12 @@ export const filterRedux = createSlice({
     setPageNumber: (state, action) => {
       state.pageNumber = action.payload;
     },
+    setFilterPrices: (state, action) => {
+      if (action.payload[0] === "min")
+        state.filterPrices.min = action.payload[1];
+      if (action.payload[0] === "max")
+        state.filterPrices.max = action.payload[1];
+    },
     setFilterCategories: (state, action) => {
       if (state.filterCategories.includes(action.payload)) {
         state.filterCategories = state.filterCategories.filter(
@@ -75,6 +81,7 @@ export const {
   setPageNumber,
   setFilterCategories,
   setFilterSizes,
+  setFilterPrices,
   setSortCategory,
 } = filterRedux.actions;
 

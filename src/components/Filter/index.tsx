@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./Filter.module.scss";
 import { BiPlus } from "react-icons/bi";
 import { Categories, FilterCategories, Sizes } from "../../constants";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux";
-import { setFilterCategories, setFilterSizes } from "../../redux/filter";
+import {
+  setFilterCategories,
+  setFilterSizes,
+  setFilterPrices,
+} from "../../redux/filter";
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [priceToggle, setPriceToggle] = useState<boolean>(false);
   const [categoryToggle, setCategoryToggle] = useState<boolean>(false);
   const [sizeToggle, setSizeToggle] = useState<boolean>(false);
+
+  const [selectedCategories, setSelectedCategories] = useState<string>();
+  const [selectedSizes, setSelectedSizes] = useState<string>();
+  const [selectedMinPrice, setSelectedMinPrice] = useState<number>(0);
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState<number>(0);
+
+  const minRef = useRef<HTMLInputElement>(null);
+  const maxRef = useRef<HTMLInputElement>(null);
 
   const handleFiltersOpen = (category: string) => {
     switch (category) {
@@ -31,14 +43,28 @@ const Filter: React.FC = () => {
   const handleFilter = (category: string, value: string) => {
     switch (category) {
       case FilterCategories.CATEGORY:
-        dispatch(setFilterCategories(value));
+        setSelectedCategories(value);
         break;
       case FilterCategories.SIZE:
-        dispatch(setFilterSizes(value));
+        setSelectedSizes(value);
         break;
       default:
         break;
     }
+  };
+
+  const handlePriceFilter = (category: string) => {
+    if (category === "min" && minRef.current)
+      setSelectedMinPrice(Number(minRef.current.value));
+    if (category === "max" && maxRef.current)
+      setSelectedMaxPrice(Number(maxRef.current.value));
+  };
+
+  const handleApplyFilters = () => {
+    if (selectedCategories) dispatch(setFilterCategories(selectedCategories));
+    if (selectedSizes) dispatch(setFilterSizes(selectedSizes));
+    if (selectedMinPrice) dispatch(setFilterPrices(["min", selectedMinPrice]));
+    if (selectedMaxPrice) dispatch(setFilterPrices(["max", selectedMaxPrice]));
   };
 
   //TODO add plus-minus animation on filter openning
@@ -61,19 +87,23 @@ const Filter: React.FC = () => {
               style={priceToggle ? { height: "50px", opacity: 1 } : {}}
               type="number"
               name="min_price"
+              ref={minRef}
               min={0}
               max={9998}
               id=""
               placeholder="Min"
+              onChange={() => handlePriceFilter("min")}
             />
             <input
               style={priceToggle ? { height: "50px", opacity: 1 } : {}}
               type="number"
               name="max_price"
+              ref={maxRef}
               min={1}
               max={9999}
               id=""
               placeholder="Max"
+              onChange={() => handlePriceFilter("max")}
             />
           </div>
         </section>
@@ -131,6 +161,9 @@ const Filter: React.FC = () => {
             ))}
           </div>
         </section>
+        <button className={classes.applyFilters} onClick={handleApplyFilters}>
+          Apply filters
+        </button>
       </div>
     </div>
   );

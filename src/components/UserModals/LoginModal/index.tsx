@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux";
 import { setLoginForm, setLoginModal } from "../../../redux/user";
 import { UserModalOpts, ValidationErrs } from "../../../constants";
+import { loginUser } from "../../../redux/user/asyncActions";
 
 const LoginModal: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +24,11 @@ const LoginModal: React.FC = () => {
     if (e.target === containerRef.current) dispatch(setLoginModal());
   };
 
-  const validateEmail = (email: string) => {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return regex.test(email);
-  };
+  //TODO fix it
+  // const validateEmail = (email: string) => {
+  //   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  //   return regex.test(email);
+  // };
 
   const validateLogin = () => {
     //check if email was entered
@@ -41,17 +43,25 @@ const LoginModal: React.FC = () => {
       return (
         setPasswordError(true), setPassErrorMsg(ValidationErrs.password.noEntry)
       );
+
+    //TODO fix it
     //check if email entered is valid
-    if (validateEmail(emailRef.current.value))
-      return (
-        setEmailError(true), setEmailErrorMsg(ValidationErrs.email.badEntry)
-      );
+    // if (validateEmail(emailRef.current.value))
+    //   return (
+    //     setEmailError(true), setEmailErrorMsg(ValidationErrs.email.badEntry)
+    //   );
+
     //check if password entered is valid
     if (passRef.current.value.length < 8)
       return (
         setPasswordError(true),
         setPassErrorMsg(ValidationErrs.password.badEntry)
       );
+    const loginInfo = {
+      email: emailRef.current.value,
+      password: passRef.current.value,
+    };
+    dispatch(loginUser(loginInfo));
   };
 
   const handleSignUp = () => {

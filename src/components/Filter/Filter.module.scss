@@ -110,3 +110,11 @@
 
   margin-top: 10px;
 }
+
+.applyFilters {
+  width: 100%;
+  text-align: center;
+  padding: 10px 15px;
+  background: $brown-dark;
+  @include textStyle($main-font, 16px, 500, $grey-light);
+}
