@@ -42,10 +42,13 @@ export interface CartItemType {
   quantity: number;
   size: string;
 }
-
 export interface UserType {
   name: string;
   role: string;
   email: string;
   photo: string;
+}
+
+export interface SortCategoriesType {
+  [key: string]: { [key: string]: string };
 }

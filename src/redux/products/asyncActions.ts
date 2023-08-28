@@ -1,11 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ProductsApi } from "../../api/Products.api";
-// import { RootState } from "../index";
-
-export const getProducts = createAsyncThunk(
-  "products/getProducts",
-  async () => await ProductsApi.getProducts()
-);
 
 export const getTopProducts = createAsyncThunk(
   "products/getTopProducts",

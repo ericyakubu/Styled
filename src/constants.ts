@@ -1,3 +1,5 @@
+import { SortCategoriesType } from "./types";
+
 export const Sizes: string[] = ["xxs", "xs", "s", "m", "l", "xl", "xxl"];
 export const Categories: string[] = [
   "dresses",
@@ -38,13 +40,35 @@ export const FilterCategories: { [key: string]: string } = {
   SIZE: "size",
 };
 
-export const SortCategories: { [key: string]: string } = {
-  SORT_BY: "Sort by",
-  NEWEST: "Newest",
-  PRICE_LOW_TO_HIGH: "Price (low-high)",
-  PRICE_HIGH_TO_LOW: "Price (high-low)",
-  NAME_A_TO_Z: "Name (A-Z)",
-  NAME_Z_TO_A: "Name (Z-A)",
+export const SortCategories: SortCategoriesType = {
+  SORT_BY: {
+    name: "Sort by",
+    value: "",
+  },
+  NEWEST: {
+    name: "Newest",
+    value: "createdAt",
+  },
+  OLDEST: {
+    name: "Oldest",
+    value: "-createdAt",
+  },
+  PRICE_LOW_TO_HIGH: {
+    name: "Price (low-high)",
+    value: "price",
+  },
+  PRICE_HIGH_TO_LOW: {
+    name: "Price (high-low)",
+    value: "-price",
+  },
+  NAME_A_TO_Z: {
+    name: "Name (A-Z)",
+    value: "name",
+  },
+  NAME_Z_TO_A: {
+    name: "Name (Z-A)",
+    value: "-name",
+  },
 };
 
 export const ValidationErrs = {

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductType, ProductsType } from "../../types";
-import { getProduct, getProducts, getTopProducts } from "./asyncActions";
+import { getProduct, getTopProducts } from "./asyncActions";
+import { getProducts } from "../filter/asyncActions";
 
 interface initialStateType {
   isLoading: boolean;

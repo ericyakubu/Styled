@@ -1,30 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProducts } from "../products/asyncActions";
+import { getProducts } from "../filter/asyncActions";
 import { SortCategories } from "../../constants";
 
 interface initialStateType {
   pageNumber: number;
+  pageSize: number | null;
   productsNumber: number;
 
-  sortCategory: string | null;
+  sort: string | null;
   filterCategories: string[];
   filterSizes: string[];
   filterPrices: {
-    min: number;
-    max: number;
+    min: number | null;
+    max: number | null;
   };
 }
 
 const initialState: initialStateType = {
   pageNumber: 1,
+  pageSize: null,
   productsNumber: 0,
 
-  sortCategory: null,
+  sort: null,
   filterCategories: [],
   filterSizes: [],
   filterPrices: {
-    min: 0,
-    max: 999999999999999,
+    min: null,
+    max: null,
   },
 };
 
@@ -54,10 +56,11 @@ export const filterRedux = createSlice({
       }
     },
     setSortCategory: (state, action) => {
+      console.log(action.payload);
       if (action.payload === SortCategories.SORT_BY) {
-        state.sortCategory = "";
+        state.sort = "";
       } else {
-        state.sortCategory = action.payload;
+        state.sort = action.payload;
       }
     },
   },

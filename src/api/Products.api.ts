@@ -1,7 +1,18 @@
 import axios from "axios";
 
 import { apiConfig } from "./index";
-// import { ProductType, ProductsType } from "../types";
+
+interface getProductsType {
+  pageNumber: number;
+  pageSize: number | null;
+  sort: string | null;
+  filterCategories: string[];
+  filterSizes: string[];
+  filterPrices: {
+    min: number | null;
+    max: number | null;
+  };
+}
 
 export const ProductsApi = {
   getProduct(id: string) {
@@ -12,7 +23,34 @@ export const ProductsApi = {
       .get(`${apiConfig.products}/top-5-cheap`)
       .then((res) => res.data);
   },
-  getProducts: async () => {
-    return axios.get(`${apiConfig.products}`).then((res) => res.data);
+  getProducts: async ({
+    pageNumber,
+    pageSize,
+    sort,
+    filterCategories,
+    filterPrices,
+    filterSizes,
+  }: getProductsType) => {
+    let queryParams = `?page=${pageNumber}`;
+
+    //set page limit and sorting
+    queryParams += pageSize ? `&limit=${pageSize}` : "";
+    queryParams += sort ? `&sort=${sort}` : "";
+
+    //filter by prices
+    queryParams += filterPrices.min ? `&price[gte]=${filterPrices.min}` : "";
+    queryParams += filterPrices.max ? `&price[lte]=${filterPrices.max}` : "";
+
+    //filter by sizes and categories
+    queryParams += filterSizes
+      ? `${filterSizes.map((size) => `&sizes=${size}`)}`
+      : "";
+    queryParams += filterCategories
+      ? `${filterCategories.map((category) => `&category=${category}`)}`
+      : "";
+
+    return axios
+      .get(`${apiConfig.products}` + queryParams)
+      .then((res) => res.data);
   },
 };

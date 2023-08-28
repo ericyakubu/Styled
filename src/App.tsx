@@ -14,19 +14,28 @@ import UserPage from "./pages/UserPage";
 import Shop from "./pages/Shop";
 // import Test from "./pages/Test";
 import Payment from "./pages/Payment";
-import { useDispatch } from "react-redux";
-import { getProducts, getTopProducts } from "./redux/products/asyncActions";
-import { AppDispatch } from "./redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getTopProducts } from "./redux/products/asyncActions";
+import { getProducts } from "./redux/filter/asyncActions";
+import { AppDispatch, RootState } from "./redux";
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   axios.defaults.withCredentials = true;
 
+  const filter = useSelector((state: RootState) => state.filter);
+
   useEffect(() => {
     //TODO fix this error
-    dispatch(getProducts());
     dispatch(getTopProducts());
   }, []);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [filter]);
+
+  // useEffect(() => {
+  // }, []);
 
   // const getProducts = async () => {
   //   await axios

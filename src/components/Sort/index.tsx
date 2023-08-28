@@ -10,12 +10,13 @@ const Sort: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [showOpt, setShowOpt] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    SortCategories.SORT_BY
+    SortCategories.SORT_BY.name
   );
   const sortRef = useRef<HTMLDivElement>(null);
-  const categories: string[] = [
+  const categories: { [key: string]: string }[] = [
     SortCategories.SORT_BY,
     SortCategories.NEWEST,
+    SortCategories.OLDEST,
     SortCategories.PRICE_LOW_TO_HIGH,
     SortCategories.PRICE_HIGH_TO_LOW,
     SortCategories.NAME_A_TO_Z,
@@ -26,10 +27,10 @@ const Sort: React.FC = () => {
     setShowOpt((prev) => !prev);
   };
 
-  const handleSelectCategory = (category: string) => {
+  const handleSelectCategory = (category: { [key: string]: string }) => {
     setShowOpt(false);
-    setSelectedCategory(category);
-    dispatch(setSortCategory(category));
+    setSelectedCategory(category.name);
+    dispatch(setSortCategory(category.value));
   };
 
   return (
@@ -47,13 +48,13 @@ const Sort: React.FC = () => {
             {categories.map((category, i) => (
               <button
                 className={`${classes.option} ${
-                  selectedCategory === category ? classes.selected : ""
+                  selectedCategory === category.name ? classes.selected : ""
                 }`}
-                value={category}
+                value={category.value}
                 key={`sort_category_${i}`}
                 onClick={() => handleSelectCategory(category)}
               >
-                {category}
+                {category.name}
               </button>
             ))}
           </div>
