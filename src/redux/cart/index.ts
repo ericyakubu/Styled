@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CartItemType } from "../../types";
+import { immediateCheckout } from "./asyncActions";
 
 interface initialStateType {
   items: CartItemType[];
@@ -75,6 +76,11 @@ export const cart = createSlice({
       newPrice = state.totalPrice - action.payload.price;
       state.totalPrice = Number(newPrice.toFixed(2));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(immediateCheckout.fulfilled, (state, action) => {
+      window.open(action.payload.session.url, "_blank");
+    });
   },
 });
 

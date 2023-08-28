@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShowCart } from "../../redux/cart";
 import { AppDispatch, RootState } from "../../redux";
 import CartItem from "./CartItem";
+import { immediateCheckout } from "../../redux/cart/asyncActions";
 
 const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
@@ -20,8 +21,7 @@ const Cart: React.FC = () => {
     dispatch(setShowCart());
   };
   const handleCheckout = (): void => {
-    //TODO
-    console.log("go to checkout");
+    dispatch(immediateCheckout(items));
   };
 
   return (

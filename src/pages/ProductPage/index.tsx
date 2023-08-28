@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from "../../redux";
 import { CartItemType } from "../../types";
 import { addToCart } from "../../redux/cart";
 import { Sizes } from "../../constants";
-import { v4 } from "uuid";
+import { immediateCheckout } from "../../redux/cart/asyncActions";
 
 const ProductPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +26,7 @@ const ProductPage: React.FC = () => {
   const handleAddToCartHolder = (size: string) => {
     if (!product) return;
     const newCartItem: CartItemType = {
-      id: v4(),
+      id: product.id,
       imageCover: product.imageCover,
       name: product.name,
       price: finalPrice,
@@ -49,6 +49,12 @@ const ProductPage: React.FC = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(cart));
+  };
+
+  const handleImmediateCheckout = () => {
+    if (!product) return;
+    const checkoutItems = [...cart];
+    dispatch(immediateCheckout(checkoutItems));
   };
 
   useEffect(() => {
@@ -200,7 +206,7 @@ const ProductPage: React.FC = () => {
               <button onClick={handleAddToCart}>
                 Add to Cart {cart.length >= 1 ? <>({cart.length})</> : null}
               </button>
-              <button>Buy Now</button>
+              <button onClick={handleImmediateCheckout}>Buy Now</button>
             </div>
           </div>
         </>

@@ -20,9 +20,15 @@ const User: React.FC = () => {
   };
 
   return (
-    <button className={classes.user} onClick={handleOpenUser}>
-      <FaUserAlt />
-    </button>
+    <>
+      <button className={classes.user} onClick={handleOpenUser}>
+        <FaUserAlt />
+      </button>
+      {/* <div >
+        <button>login</button>
+        <button>Signup</button>
+      </div> */}
+    </>
   );
 };
 
