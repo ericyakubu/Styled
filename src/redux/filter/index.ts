@@ -6,6 +6,7 @@ interface initialStateType {
   pageNumber: number;
   pageSize: number | null;
   productsNumber: number;
+  onSale: boolean;
 
   sort: string | null;
   filterCategories: string[];
@@ -20,6 +21,7 @@ const initialState: initialStateType = {
   pageNumber: 1,
   pageSize: null,
   productsNumber: 0,
+  onSale: false,
 
   sort: null,
   filterCategories: [],
@@ -52,6 +54,9 @@ export const filterRedux = createSlice({
         state.filterCategories = [...state.filterCategories, action.payload];
       }
     },
+    setFilterSale: (state, action) => {
+      state.onSale = action.payload;
+    },
     setFilterSizes: (state, action) => {
       if (state.filterSizes.includes(action.payload)) {
         state.filterSizes = state.filterSizes.filter(
@@ -83,6 +88,7 @@ export const {
   setFilterSizes,
   setFilterPrices,
   setSortCategory,
+  setFilterSale,
 } = filterRedux.actions;
 
 export default filterRedux.reducer;

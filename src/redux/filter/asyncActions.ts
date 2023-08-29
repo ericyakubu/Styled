@@ -11,6 +11,7 @@ export const getProducts = createAsyncThunk(
       pageNumber: filterState.pageNumber,
       pageSize: filterState.pageSize,
       sort: filterState.sort,
+      onSale: filterState.onSale,
       filterCategories: filterState.filterCategories,
       filterPrices: filterState.filterPrices,
       filterSizes: filterState.filterSizes,

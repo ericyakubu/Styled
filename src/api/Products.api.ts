@@ -5,6 +5,7 @@ import { apiConfig } from "./index";
 interface getProductsType {
   pageNumber: number;
   pageSize: number | null;
+  onSale: boolean;
   sort: string | null;
   filterCategories: string[];
   filterSizes: string[];
@@ -27,6 +28,7 @@ export const ProductsApi = {
     pageNumber,
     pageSize,
     sort,
+    onSale,
     filterCategories,
     filterPrices,
     filterSizes,
@@ -36,7 +38,7 @@ export const ProductsApi = {
     //set page limit and sorting
     queryParams += pageSize ? `&limit=${pageSize}` : "";
     queryParams += sort ? `&sort=${sort}` : "";
-
+    queryParams += onSale ? `&onSale=true` : "";
     //filter by prices
     queryParams += filterPrices.min ? `&price[gte]=${filterPrices.min}` : "";
     queryParams += filterPrices.max ? `&price[lte]=${filterPrices.max}` : "";

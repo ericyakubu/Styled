@@ -3,9 +3,11 @@ export interface ProductsType {
   name: string;
   category: string[];
   sizes: string[];
+  sizesShoes: string[];
   ratingsAverage: number;
   ratingsQuantity: number;
   price: number;
+  priceDiscount: number;
   description: string;
   discount: number;
   images: string[];
@@ -40,7 +42,7 @@ export interface CartItemType {
   name: string;
   price: number;
   quantity: number;
-  size: string;
+  size: string | number;
 }
 export interface UserType {
   name: string;

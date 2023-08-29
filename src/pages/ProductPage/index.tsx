@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux";
 import { CartItemType } from "../../types";
 import { addToCart } from "../../redux/cart";
-import { Sizes } from "../../constants";
+import { Sizes, SizesShoes } from "../../constants";
 import { immediateCheckout } from "../../redux/cart/asyncActions";
 
 const ProductPage: React.FC = () => {
@@ -15,15 +15,15 @@ const ProductPage: React.FC = () => {
   const { product } = useSelector((state: RootState) => state.products);
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [priceOriginal, setPriceOriginal] = useState<number>(0);
-  const [sizesAvailable, setSizesAvailable] = useState<string[]>([]);
-  const [sizesChosen, setSizesChosen] = useState<string[]>([]);
+  const [sizesAvailable, setSizesAvailable] = useState<(string | number)[]>([]);
+  const [sizesChosen, setSizesChosen] = useState<(string | number)[]>([]);
   const [cart, setCart] = useState<CartItemType[]>([]);
 
   const [stars, setStars] = useState<string[]>([]);
 
   const { id } = useParams();
 
-  const handleAddToCartHolder = (size: string) => {
+  const handleAddToCartHolder = (size: string | number) => {
     if (!product) return;
     const newCartItem: CartItemType = {
       id: product.id,
@@ -68,6 +68,7 @@ const ProductPage: React.FC = () => {
       let full;
       let empty;
       let half = product.ratingsAverage % 1;
+      let finalPrice: number = 0;
 
       const test = [];
       if (half !== 0) {
@@ -94,11 +95,14 @@ const ProductPage: React.FC = () => {
       }
       setStars(test);
 
-      setSizesAvailable(product.sizes);
-      if (product.discount) {
-        const finalPrice: number =
-          product.price - product.price * (product.discount / 100);
+      if (product.sizes.length) setSizesAvailable(product.sizes);
+      if (product.sizesShoes.length) setSizesAvailable(product.sizesShoes);
+      if (product.discount)
+        finalPrice = product.price - product.price * (product.discount / 100);
+      if (product.priceDiscount)
+        finalPrice = product.price - product.priceDiscount;
 
+      if (product.discount || product.priceDiscount) {
         setPriceOriginal(Number(product.price.toFixed(2)));
         setFinalPrice(Number(finalPrice.toFixed(2)));
       } else {
@@ -163,14 +167,16 @@ const ProductPage: React.FC = () => {
 
             <div className={classes.price}>
               Price: <span className={classes.price_num}>${finalPrice}</span>{" "}
-              {product.discount ? (
+              {product.discount || product.priceDiscount ? (
                 <>
                   <div className={classes.price_discount}>
                     <div className={classes.original}>
                       List Price: {priceOriginal}
                     </div>
                     <span className={classes.percentage}>
-                      -{product.discount}%
+                      {product.discount
+                        ? `-${product.discount}%`
+                        : `- $${product.priceDiscount}`}
                     </span>
                   </div>
                 </>
@@ -179,28 +185,48 @@ const ProductPage: React.FC = () => {
 
             <div className={classes.description}>{product.description}</div>
 
-            <div className={classes.sizes_container}>
-              <p>Sizes: </p>
-              <div className={classes.sizes}>
-                {Sizes.map((sizeCheck, i) => (
-                  <button
-                    className={` ${
-                      sizesAvailable.includes(sizeCheck)
-                        ? classes.size_available
-                        : classes.size_unavailable
-                    } ${
-                      sizesChosen.includes(sizeCheck)
-                        ? classes.size_selected
-                        : ""
-                    }`}
-                    onClick={() => handleAddToCartHolder(sizeCheck)}
-                    key={`size_key_${i}`}
-                  >
-                    {sizeCheck}
-                  </button>
-                ))}
+            {product.sizes.length || product.sizesShoes.length ? (
+              <div className={classes.sizes_container}>
+                <p>Sizes: </p>
+                <div className={classes.sizes}>
+                  {product.sizes.length
+                    ? Sizes.map((sizeCheck, i) => (
+                        <button
+                          className={` ${
+                            sizesAvailable.includes(sizeCheck)
+                              ? classes.size_available
+                              : classes.size_unavailable
+                          } ${
+                            sizesChosen.includes(sizeCheck)
+                              ? classes.size_selected
+                              : ""
+                          }`}
+                          onClick={() => handleAddToCartHolder(sizeCheck)}
+                          key={`size_key_${i}`}
+                        >
+                          {sizeCheck}
+                        </button>
+                      ))
+                    : SizesShoes.map((sizeCheck, i) => (
+                        <button
+                          className={` ${
+                            sizesAvailable.includes(sizeCheck)
+                              ? classes.size_available
+                              : classes.size_unavailable
+                          } ${
+                            sizesChosen.includes(sizeCheck)
+                              ? classes.size_selected
+                              : ""
+                          }`}
+                          onClick={() => handleAddToCartHolder(sizeCheck)}
+                          key={`size_key_${i}`}
+                        >
+                          {sizeCheck}
+                        </button>
+                      ))}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div className={classes.btns}>
               <button onClick={handleAddToCart}>
