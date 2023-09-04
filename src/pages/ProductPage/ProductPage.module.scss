@@ -36,6 +36,10 @@
       object-fit: cover;
       -o-object-position: center;
       object-position: center;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

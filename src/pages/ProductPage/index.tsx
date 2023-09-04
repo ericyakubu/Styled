@@ -18,8 +18,12 @@ const ProductPage: React.FC = () => {
   const [sizesAvailable, setSizesAvailable] = useState<(string | number)[]>([]);
   const [sizesChosen, setSizesChosen] = useState<(string | number)[]>([]);
   const [cart, setCart] = useState<CartItemType[]>([]);
-
   const [stars, setStars] = useState<string[]>([]);
+  const [chozenImg, setChosenImg] = useState<number>(0);
+
+  const images: string[] = product
+    ? [product.imageCover, ...product.images]
+    : [""];
 
   const { id } = useParams();
 
@@ -49,6 +53,10 @@ const ProductPage: React.FC = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(cart));
+  };
+
+  const handleChangeImg = (index: number) => {
+    setChosenImg(index);
   };
 
   const handleImmediateCheckout = () => {
@@ -118,23 +126,33 @@ const ProductPage: React.FC = () => {
       {product && (
         <>
           <div className={classes.img_container}>
-            <img
-              src={product.imageCover}
-              alt={product.name}
-              className={classes.img_main}
-            />
-
-            <div className={classes.imgs}>
-              {product.images.map((img, i) => (
+            {images ? (
+              <>
                 <img
-                  src={img}
-                  alt=""
-                  className={classes.img}
-                  key={`img_${i}`}
+                  src={images[chozenImg]}
+                  alt={product.name}
+                  className={classes.img_main}
                 />
-              ))}
-            </div>
+
+                {images.length >= 2 ? (
+                  <>
+                    <div className={classes.imgs}>
+                      {images.map((img, i) => (
+                        <img
+                          src={img}
+                          alt=""
+                          onClick={() => handleChangeImg(i)}
+                          className={classes.img}
+                          key={`img_${i}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+              </>
+            ) : null}
           </div>
+
           <div className={classes.product_info}>
             <div className={classes.name}>
               <h2>{product.name}</h2>

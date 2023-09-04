@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getProducts } from "../filter/asyncActions";
 import { SortCategories } from "../../constants";
+import { filterType } from "../../types";
 
 interface initialStateType {
   pageNumber: number;
@@ -9,6 +10,9 @@ interface initialStateType {
   onSale: boolean;
 
   sort: string | null;
+  filters: filterType;
+
+  filterName: string;
   filterCategories: string[];
   filterSizes: string[];
   filterPrices: {
@@ -24,6 +28,16 @@ const initialState: initialStateType = {
   onSale: false,
 
   sort: null,
+  filters: {
+    name: "",
+    categories: [],
+    sizes: [],
+    prices: {
+      min: null,
+      max: null,
+    },
+  },
+  filterName: "",
   filterCategories: [],
   filterSizes: [],
   filterPrices: {
@@ -36,8 +50,14 @@ export const filterRedux = createSlice({
   name: "filterRedux",
   initialState,
   reducers: {
+    setFilters: (state, action) => {
+      state.filters = action.payload;
+    },
     setPageNumber: (state, action) => {
       state.pageNumber = action.payload;
+    },
+    setFilterName: (state, action) => {
+      state.filterName = action.payload;
     },
     setFilterPrices: (state, action) => {
       if (action.payload[0] === "min")
@@ -46,25 +66,27 @@ export const filterRedux = createSlice({
         state.filterPrices.max = action.payload[1];
     },
     setFilterCategories: (state, action) => {
-      if (state.filterCategories.includes(action.payload)) {
-        state.filterCategories = state.filterCategories.filter(
-          (cat) => cat !== action.payload
-        );
-      } else {
-        state.filterCategories = [...state.filterCategories, action.payload];
-      }
+      // if (state.filterCategories.includes(action.payload)) {
+      //   state.filterCategories = state.filterCategories.filter(
+      //     (cat) => cat !== action.payload
+      //   );
+      // } else {
+      //   state.filterCategories = [...state.filterCategories, action.payload];
+      // }
+      state.filterCategories = action.payload;
     },
     setFilterSale: (state, action) => {
       state.onSale = action.payload;
     },
     setFilterSizes: (state, action) => {
-      if (state.filterSizes.includes(action.payload)) {
-        state.filterSizes = state.filterSizes.filter(
-          (size) => size !== action.payload
-        );
-      } else {
-        state.filterSizes = [...state.filterSizes, action.payload];
-      }
+      // if (state.filterSizes.includes(action.payload)) {
+      //   state.filterSizes = state.filterSizes.filter(
+      //     (size) => size !== action.payload
+      //   );
+      // } else {
+      //   state.filterSizes = [...state.filterSizes, action.payload];
+      // }
+      state.filterSizes = action.payload;
     },
     setSortCategory: (state, action) => {
       console.log(action.payload);
@@ -83,12 +105,14 @@ export const filterRedux = createSlice({
 });
 
 export const {
+  setFilters,
   setPageNumber,
   setFilterCategories,
   setFilterSizes,
   setFilterPrices,
   setSortCategory,
   setFilterSale,
+  setFilterName,
 } = filterRedux.actions;
 
 export default filterRedux.reducer;

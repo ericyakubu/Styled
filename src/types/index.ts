@@ -54,3 +54,13 @@ export interface UserType {
 export interface SortCategoriesType {
   [key: string]: { [key: string]: string };
 }
+
+export interface filterType {
+  name: string;
+  categories: string[];
+  sizes: string[];
+  prices: {
+    min: number | null;
+    max: number | null;
+  };
+}

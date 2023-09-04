@@ -4,6 +4,10 @@
 .links {
   display: flex;
   gap: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   a {
     @include textStyle($main-font, 16px, 400, $grey);

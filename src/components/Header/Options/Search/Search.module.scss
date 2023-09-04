@@ -34,15 +34,15 @@
     }
   }
 
-  &:hover {
-    .search_txt {
-      width: 225px;
-      padding: 5px 30px 5px 10px;
-      opacity: 1;
-    }
-
-    .icon {
-      color: $grey-dark;
-    }
+  // &:hover {
+  .search_txt {
+    width: 225px;
+    padding: 5px 30px 5px 10px;
+    opacity: 1;
   }
+
+  .icon {
+    color: $grey-dark;
+  }
+  // }
 }

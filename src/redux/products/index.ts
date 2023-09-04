@@ -8,7 +8,7 @@ interface initialStateType {
   isTopLoading: boolean;
   isProductLoading: boolean;
 
-  product: ProductType | null;
+  product?: ProductType;
   topProducts: ProductsType[];
   products: ProductsType[];
 }
@@ -18,7 +18,6 @@ const initialState: initialStateType = {
   isTopLoading: false,
   isProductLoading: false,
 
-  product: null,
   topProducts: [],
   products: [],
 };
@@ -28,7 +27,7 @@ export const products = createSlice({
   initialState,
   reducers: {
     removeOldProduct: (state) => {
-      state.product = null;
+      delete state.product;
     },
   },
   extraReducers: (builder) => {

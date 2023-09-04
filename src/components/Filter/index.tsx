@@ -1,25 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./Filter.module.scss";
 import { BiPlus } from "react-icons/bi";
 import { Categories, FilterCategories, Sizes } from "../../constants";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux";
-import {
-  setFilterCategories,
-  setFilterSizes,
-  setFilterPrices,
-} from "../../redux/filter";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux";
+import { setFilters } from "../../redux/filter";
+import { filterType } from "../../types";
 
 const Filter: React.FC = () => {
+  //TODO needs refactoring
   const dispatch = useDispatch<AppDispatch>();
+  const { filters } = useSelector((state: RootState) => state.filter);
+  const [selectedFilters, setSelectedFilters] = useState<filterType>(filters);
   const [priceToggle, setPriceToggle] = useState<boolean>(false);
   const [categoryToggle, setCategoryToggle] = useState<boolean>(false);
   const [sizeToggle, setSizeToggle] = useState<boolean>(false);
-
-  const [selectedCategories, setSelectedCategories] = useState<string>();
-  const [selectedSizes, setSelectedSizes] = useState<string>();
-  const [selectedMinPrice, setSelectedMinPrice] = useState<number>(0);
-  const [selectedMaxPrice, setSelectedMaxPrice] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const minRef = useRef<HTMLInputElement>(null);
   const maxRef = useRef<HTMLInputElement>(null);
@@ -41,31 +37,105 @@ const Filter: React.FC = () => {
   };
 
   const handleFilter = (category: string, value: string) => {
-    switch (category) {
-      case FilterCategories.CATEGORY:
-        setSelectedCategories(value);
-        break;
-      case FilterCategories.SIZE:
-        setSelectedSizes(value);
-        break;
-      default:
-        break;
+    if (category === FilterCategories.CATEGORY) {
+      const { categories } = selectedFilters;
+      const index = categories.indexOf(value);
+      if (index !== -1) {
+        const arr = categories.filter((cat) => cat !== value);
+        setSelectedFilters((prev) => ({
+          ...prev,
+          categories: arr,
+        }));
+      } else {
+        setSelectedFilters((prev) => ({
+          ...prev,
+          categories: [...prev.categories, value],
+        }));
+      }
     }
+
+    if (category === FilterCategories.SIZE) {
+      const { sizes } = selectedFilters;
+      const index = sizes.indexOf(value);
+      if (index !== -1) {
+        const arr = sizes.filter((size) => size !== value);
+        setSelectedFilters((prev) => ({
+          ...prev,
+          sizes: arr,
+        }));
+      } else {
+        setSelectedFilters((prev) => ({
+          ...prev,
+          sizes: [...prev.sizes, value],
+        }));
+      }
+    }
+
+    setDisabled(false);
   };
 
   const handlePriceFilter = (category: string) => {
     if (category === "min" && minRef.current)
-      setSelectedMinPrice(Number(minRef.current.value));
+      setSelectedFilters((prev) => ({
+        ...prev,
+        prices: {
+          ...prev.prices,
+          min: Number(minRef.current?.value),
+        },
+      }));
+
     if (category === "max" && maxRef.current)
-      setSelectedMaxPrice(Number(maxRef.current.value));
+      setSelectedFilters((prev) => ({
+        ...prev,
+        prices: {
+          ...prev.prices,
+          max: Number(maxRef.current?.value),
+        },
+      }));
+    setDisabled(false);
   };
 
   const handleApplyFilters = () => {
-    if (selectedCategories) dispatch(setFilterCategories(selectedCategories));
-    if (selectedSizes) dispatch(setFilterSizes(selectedSizes));
-    if (selectedMinPrice) dispatch(setFilterPrices(["min", selectedMinPrice]));
-    if (selectedMaxPrice) dispatch(setFilterPrices(["max", selectedMaxPrice]));
+    dispatch(setFilters(selectedFilters));
   };
+
+  const handleRemoveFilters = () => {
+    // console.log("removed");
+    setSelectedFilters((prev) => ({
+      ...prev,
+      categories: [],
+      sizes: [],
+      prices: {
+        min: null,
+        max: null,
+      },
+    }));
+    dispatch(
+      setFilters({
+        name: filters.name,
+        categories: [],
+        sizes: [],
+        prices: {
+          min: null,
+          max: null,
+        },
+      })
+    );
+    setDisabled(true);
+  };
+
+  useEffect(() => {
+    const check = selectedFilters.prices.min
+      ? false
+      : selectedFilters.prices.max
+      ? false
+      : selectedFilters.sizes.length
+      ? false
+      : selectedFilters.categories.length
+      ? false
+      : true;
+    setDisabled(check);
+  }, [selectedFilters]);
 
   //TODO add plus-minus animation on filter openning
   return (
@@ -80,27 +150,28 @@ const Filter: React.FC = () => {
             <span>Price</span> <BiPlus />
           </button>
           <div
-            className={classes.price_inputs}
-            style={priceToggle ? { marginTop: "20px", height: "auto" } : {}}
+            className={`${classes.price_inputs} ${
+              priceToggle ? classes.show : classes.hide
+            }`}
           >
             <input
-              style={priceToggle ? { height: "50px", opacity: 1 } : {}}
               type="number"
               name="min_price"
               ref={minRef}
               min={0}
               max={9998}
+              value={selectedFilters.prices.min || ""}
               id=""
               placeholder="Min"
               onChange={() => handlePriceFilter("min")}
             />
             <input
-              style={priceToggle ? { height: "50px", opacity: 1 } : {}}
               type="number"
               name="max_price"
               ref={maxRef}
               min={1}
               max={9999}
+              value={selectedFilters.prices.max || ""}
               id=""
               placeholder="Max"
               onChange={() => handlePriceFilter("max")}
@@ -125,8 +196,9 @@ const Filter: React.FC = () => {
                   type="checkbox"
                   name=""
                   id=""
+                  checked={selectedFilters.categories.includes(category)}
                   value={category}
-                  onClick={() =>
+                  onChange={() =>
                     handleFilter(FilterCategories.CATEGORY, category)
                   }
                 />
@@ -153,14 +225,23 @@ const Filter: React.FC = () => {
                   type="checkbox"
                   name=""
                   id=""
+                  checked={selectedFilters.sizes.includes(size)}
                   value={size}
-                  onClick={() => handleFilter(FilterCategories.SIZE, size)}
+                  onChange={() => handleFilter(FilterCategories.SIZE, size)}
                 />
                 <span>{size}</span>
               </p>
             ))}
           </div>
         </section>
+        <button
+          className={`${classes.removeFilters} ${
+            disabled ? classes.disabled : ""
+          }`}
+          onClick={handleRemoveFilters}
+        >
+          Reset filters
+        </button>
         <button className={classes.applyFilters} onClick={handleApplyFilters}>
           Apply filters
         </button>

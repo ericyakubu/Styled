@@ -5,15 +5,24 @@ import classes from "./Shop.module.scss";
 import Sort from "../../components/Sort";
 import Filter from "../../components/Filter";
 import Products from "../../components/Products";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 
 const Shop: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const { onSale } = useSelector((state: RootState) => state.filter);
+
   useEffect(() => {
     dispatch(removeOldProduct());
   }, []);
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>SHOP</h2>
+      <h2 className={classes.title}>
+        SHOP
+        {onSale ? <p>Get it while it's hot</p> : null}
+      </h2>
+
       <Sort />
 
       <div className={classes.main}>

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Options.module.scss";
 import Search from "./Search";
-import User from "./User";
+// import User from "./User";
 import Cart from "./Cart";
 
 const Options: React.FC = () => {
@@ -9,7 +9,8 @@ const Options: React.FC = () => {
   return (
     <div className={classes.options}>
       <Search />
-      <User />
+      {/* //TODO fix user  */}
+      {/* <User /> */}
       <Cart />
     </div>
   );

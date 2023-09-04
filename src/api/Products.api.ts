@@ -1,12 +1,15 @@
 import axios from "axios";
 
 import { apiConfig } from "./index";
+import { filterType } from "../types";
 
 interface getProductsType {
   pageNumber: number;
   pageSize: number | null;
   onSale: boolean;
   sort: string | null;
+  filters: filterType;
+  filterName: string;
   filterCategories: string[];
   filterSizes: string[];
   filterPrices: {
@@ -29,27 +32,42 @@ export const ProductsApi = {
     pageSize,
     sort,
     onSale,
-    filterCategories,
-    filterPrices,
-    filterSizes,
-  }: getProductsType) => {
+    filters,
+  }: // filterName,
+  // filterCategories,
+  // filterPrices,
+  // filterSizes,
+  getProductsType) => {
     let queryParams = `?page=${pageNumber}`;
+    const { name, sizes, categories, prices } = filters;
 
     //set page limit and sorting
     queryParams += pageSize ? `&limit=${pageSize}` : "";
     queryParams += sort ? `&sort=${sort}` : "";
     queryParams += onSale ? `&onSale=true` : "";
-    //filter by prices
-    queryParams += filterPrices.min ? `&price[gte]=${filterPrices.min}` : "";
-    queryParams += filterPrices.max ? `&price[lte]=${filterPrices.max}` : "";
 
-    //filter by sizes and categories
-    queryParams += filterSizes
-      ? `${filterSizes.map((size) => `&sizes=${size}`)}`
+    queryParams += name ? `&name=${name}` : "";
+    queryParams += prices.min ? `&price[gte]=${prices.min}` : "";
+    queryParams += prices.max ? `&price[lte]=${prices.max}` : "";
+    queryParams += sizes ? `${sizes.map((size) => `&sizes=${size}`)}` : "";
+    queryParams += categories
+      ? `${categories.map((category) => `&category=${category}`)}`
       : "";
-    queryParams += filterCategories
-      ? `${filterCategories.map((category) => `&category=${category}`)}`
-      : "";
+
+    // //filter by prices
+    // queryParams += filterPrices.min ? `&price[gte]=${filterPrices.min}` : "";
+    // queryParams += filterPrices.max ? `&price[lte]=${filterPrices.max}` : "";
+    // queryParams += filterName ? `&name=${filterName}` : "";
+
+    // //filter by sizes and categories
+    // queryParams += filterSizes
+    //   ? `${filterSizes.map((size) => `&sizes=${size}`)}`
+    //   : "";
+    // queryParams += filterCategories
+    //   ? `${filterCategories.map((category) => `&category=${category}`)}`
+    //   : "";
+
+    // console.log(queryParams);
 
     return axios
       .get(`${apiConfig.products}` + queryParams)
