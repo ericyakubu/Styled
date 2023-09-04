@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { UserModalOpts } from "../../constants";
 
-const UserModals = () => {
+const UserModals: React.FC = () => {
   const { loginForm } = useSelector((state: RootState) => state.user);
 
   return (

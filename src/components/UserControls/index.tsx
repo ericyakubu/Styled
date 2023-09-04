@@ -12,6 +12,9 @@ const UserControls: React.FC = () => {
   const fileTypes = ["JPG", "PNG"];
   const previewRef = useRef<HTMLImageElement>(null);
 
+  //TODO fix this
+  console.log(imageURL);
+
   const handleImage = (file: File) => {
     if (file === null) return;
     setImgFile(file);

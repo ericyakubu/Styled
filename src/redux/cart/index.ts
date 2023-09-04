@@ -78,7 +78,7 @@ export const cart = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(immediateCheckout.fulfilled, (state, action) => {
+    builder.addCase(immediateCheckout.fulfilled, (_, action) => {
       window.open(action.payload.session.url, "_blank");
     });
   },

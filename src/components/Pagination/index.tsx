@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux";
 import { setPageNumber } from "../../redux/filter";
 
-const Pagination = () => {
+const Pagination: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const numberOfProducts = 200;

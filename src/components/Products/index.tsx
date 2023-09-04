@@ -4,7 +4,7 @@ import Product from "./Product";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState } from "../../redux";
 
-const Products = () => {
+const Products: React.FC = () => {
   const { products } = useSelector((state: RootState) => state.products);
 
   //TODO add loading circle

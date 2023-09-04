@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./UserPurchases.module.scss";
 import { Purchases } from "../../constants";
 
-const UserPurchases = () => {
+const UserPurchases: React.FC = () => {
   return (
     <div className={classes.container}>
       <table>
