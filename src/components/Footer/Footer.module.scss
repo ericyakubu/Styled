@@ -11,18 +11,36 @@
   .main {
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: $screen-phone) {
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // width: 100%;
+
     h3 {
       text-align: center;
       text-transform: uppercase;
       @include textStyle($main-font, 15px, 300, $grey);
       margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: $screen-phone) {
+      flex-wrap: wrap;
+
+      &:not(:last-of-type) {
+        margin-bottom: 25px;
+
+        h3 {
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 
@@ -41,6 +59,12 @@
         &:hover {
           font-size: 24px;
         }
+      }
+    }
+
+    @media screen and (max-width: $screen-phone) {
+      div {
+        gap: 35px;
       }
     }
   }
@@ -67,22 +91,6 @@
       background: #535151;
       transition: all 0.3s ease;
       @include textStyle($main-font, 13px, 400, $white);
-
-      &::-webkit-input-placeholder {
-        @include textStyle($main-font, 13px, 400, $white);
-      }
-
-      &::-moz-placeholder {
-        @include textStyle($main-font, 13px, 400, $white);
-      }
-
-      &:-ms-input-placeholder {
-        @include textStyle($main-font, 13px, 400, $white);
-      }
-
-      &::-ms-input-placeholder {
-        @include textStyle($main-font, 13px, 400, $white);
-      }
 
       &::placeholder {
         @include textStyle($main-font, 13px, 400, $white);
@@ -114,6 +122,14 @@
         font-size: 16px;
       }
     }
+
+    @media screen and (max-width: $screen-phone) {
+      a {
+        &:not(:last-of-type) {
+          margin-bottom: 10px;
+        }
+      }
+    }
   }
 
   .bottom {
@@ -130,6 +146,10 @@
       &:hover {
         font-size: 16px;
       }
+    }
+
+    @media screen and (max-width: $screen-phone) {
+      margin-top: 35px;
     }
   }
 }

@@ -5,23 +5,25 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { setFilterSale } from "../../../redux/filter";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux";
+import { setOpenMenu } from "../../../redux/menu";
 
 const LinksHead: React.FC = () => {
-  // const location = useLocation();
-  // console.log(location);
-
-  // const [test , setTest] = useState('')
-
   const { onSale } = useSelector((state: RootState) => state.filter);
-
   const dispatch = useAppDispatch();
+
+  const handleCloseMenu = () => {
+    dispatch(setOpenMenu(false));
+  };
+
   const handleSale = (onSale: boolean) => {
     dispatch(setFilterSale(onSale));
+    handleCloseMenu();
   };
   //TODO add navigation
   return (
-    <section className={classes.links}>
+    <nav className={classes.links}>
       <NavLink
+        onClick={handleCloseMenu}
         to={"/"}
         className={({ isActive, isPending }) =>
           isPending ? classes.pending : isActive ? classes.active : ""
@@ -51,7 +53,7 @@ const LinksHead: React.FC = () => {
       >
         Sale
       </NavLink>
-    </section>
+    </nav>
   );
 };
 

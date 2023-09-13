@@ -27,6 +27,13 @@ const ProductPage: React.FC = () => {
 
   const { id } = useParams();
 
+  let discount;
+
+  if (product?.discount) discount = product.discount;
+  if (product?.priceDiscount) {
+    discount = Math.ceil((product.priceDiscount / product.price) * 100);
+  }
+
   const handleAddToCartHolder = (size: string | number) => {
     if (!product) return;
     const newCartItem: CartItemType = {
@@ -47,12 +54,28 @@ const ProductPage: React.FC = () => {
       setSizesChosen(filteredSizes);
     } else {
       setCart((prev) => [...prev, newCartItem]);
-      setSizesChosen((prev) => [...prev, newCartItem.size]);
+      setSizesChosen((prev) => [
+        ...prev,
+        newCartItem.size ? newCartItem.size : "",
+      ]);
     }
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart(cart));
+    if (!product) return;
+    const newCartItem: CartItemType[] = [
+      {
+        id: product.id,
+        imageCover: product.imageCover,
+        name: product.name,
+        price: finalPrice,
+        quantity: 1,
+      },
+    ];
+
+    product.sizes.length || product.sizesShoes.length
+      ? dispatch(addToCart(cart))
+      : dispatch(addToCart(newCartItem));
   };
 
   const handleChangeImg = (index: number) => {
@@ -188,14 +211,8 @@ const ProductPage: React.FC = () => {
               {product.discount || product.priceDiscount ? (
                 <>
                   <div className={classes.price_discount}>
-                    <div className={classes.original}>
-                      List Price: {priceOriginal}
-                    </div>
-                    <span className={classes.percentage}>
-                      {product.discount
-                        ? `-${product.discount}%`
-                        : `- $${product.priceDiscount}`}
-                    </span>
+                    <div className={classes.original}>Was: {priceOriginal}</div>
+                    <span className={classes.percentage}>-{discount}%</span>
                   </div>
                 </>
               ) : null}

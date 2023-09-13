@@ -18,17 +18,19 @@ const Shop: React.FC = () => {
   }, []);
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>
+      <h1 className={classes.title}>
         SHOP
         {onSale ? <p>Get it while it's hot</p> : null}
-      </h2>
+      </h1>
 
       <Sort />
 
-      <div className={classes.main}>
-        <Filter />
+      <main className={classes.main}>
+        <div className={classes.filter}>
+          <Filter />
+        </div>
         <Products />
-      </div>
+      </main>
     </div>
   );
 };

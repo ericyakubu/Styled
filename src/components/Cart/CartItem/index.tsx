@@ -24,9 +24,11 @@ const CartItem: React.FC<Props> = ({ item }) => {
       <div className={classes.item_details}>
         <h4 className={classes.item_name}>{item.name}</h4>
         <h5 className={classes.item_price}>${item.price}</h5>
-        <h5 className={classes.item_size}>
-          Size: <span>{item.size}</span>
-        </h5>
+        {item.size ? (
+          <h5 className={classes.item_size}>
+            Size: <span>{item.size}</span>
+          </h5>
+        ) : null}
       </div>
 
       <div className={classes.item_quantity}>

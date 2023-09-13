@@ -1,10 +1,12 @@
 import { SortCategoriesType } from "./types";
 
 export const Sizes: string[] = ["xxs", "xs", "s", "m", "l", "xl", "xxl"];
+
 export const SizesShoes: number[] = [
   5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13,
   13.5, 14, 14.5, 15,
 ];
+
 export const Categories: string[] = [
   "dresses",
   "shirts",
@@ -23,11 +25,11 @@ export const Categories: string[] = [
 ].sort();
 
 export const VideoUrl: string[] = [
-  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/styled-users%2Fvideo1.mp4?alt=media&token=cfcb1b9b-e6df-44fc-9631-4fe330ef4563",
-  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/styled-users%2Fvideo2.mp4?alt=media&token=7ffafe50-3f84-48ad-be83-5af111dbc0bd",
-  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/styled-users%2Fvideo3.mp4?alt=media&token=8c9a8f7b-788d-4340-a748-fc3a12713def",
-  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/styled-users%2Fvideo4.mp4?alt=media&token=be14c3c1-4d33-45e2-82af-4bfc09719045",
-  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/styled-users%2Fvideo5.mp4?alt=media&token=2a334b1c-5f7a-4139-812c-c97293c26981",
+  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/hero%20videos%2Fvideo1.webm?alt=media&token=0bbecf75-a3a1-4954-a02a-0215256fa2cb",
+  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/hero%20videos%2Fvideo2.webm?alt=media&token=171ca54e-3eb7-4173-837d-c3932d5849a9",
+  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/hero%20videos%2Fvideo3.webm?alt=media&token=323b36ac-f746-4e2d-8f3f-90a675eee0dc",
+  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/hero%20videos%2Fvideo4.webm?alt=media&token=9c91cb35-e765-4d09-b875-1f1b03bf62d9",
+  "https://firebasestorage.googleapis.com/v0/b/memories-app-350418.appspot.com/o/hero%20videos%2Fvideo5.webm?alt=media&token=d853f2c7-090d-4359-96ea-190d963e7475",
 ];
 
 export const SocialLinks: { [key: string]: string } = {

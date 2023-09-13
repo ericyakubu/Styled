@@ -6,3 +6,19 @@
   align-items: center;
   gap: 25px;
 }
+
+.burger {
+  @include textStyle($main-font, 30px, 400, $grey);
+  line-height: 1;
+  background: none;
+  display: none;
+}
+
+@media screen and (max-width: $screen-phone) {
+  .options {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+}

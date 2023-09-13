@@ -22,7 +22,25 @@
 
   .main {
     display: flex;
-    // justify-content: space-between;
     gap: 25px;
+  }
+
+  .filter {
+    display: flex;
+  }
+
+  @media screen and (max-width: $screen-phone) {
+    padding: 0 5vw;
+    .title {
+      margin: 40px 0;
+    }
+
+    .main {
+      display: block;
+    }
+
+    .filter {
+      display: none;
+    }
   }
 }

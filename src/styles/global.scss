@@ -11,6 +11,19 @@ body {
   background-color: $body-background;
   overflow-x: hidden;
   position: relative;
+
+  &::-webkit-scrollbar {
+    background: $grey;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #444444;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+    border-radius: 1px;
+  }
 }
 
 button {

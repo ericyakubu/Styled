@@ -2,6 +2,8 @@ import React from "react";
 import classes from "./LandingOffer.module.scss";
 import { LandingSaleLinkType, ProductsType } from "../../../types";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setFilterSale } from "../../../redux/filter";
 
 interface Props {
   product: ProductsType | LandingSaleLinkType;
@@ -9,6 +11,12 @@ interface Props {
 }
 
 const LandingOffer: React.FC<Props> = ({ product, index }) => {
+  const dispatch = useAppDispatch();
+
+  const handleSale = (onSale: boolean) => {
+    dispatch(setFilterSale(onSale));
+  };
+
   return (
     <>
       {index !== 1 ? (
@@ -17,7 +25,11 @@ const LandingOffer: React.FC<Props> = ({ product, index }) => {
           <p className={classes.product}>{product.name}</p>
         </Link>
       ) : (
-        <Link to={`${product.link}`} className={classes.container}>
+        <Link
+          to={`${product.link}`}
+          className={classes.container}
+          onClick={() => handleSale(true)}
+        >
           <img src={product.imageCover} alt={product.name} />
 
           <p className={classes.sale}>SALE</p>

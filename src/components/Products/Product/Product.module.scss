@@ -15,29 +15,51 @@
   box-shadow: $shadow-4px;
   transition: all 0.3s ease;
 
+  @media screen and (max-width: $screen-phone) {
+    margin: 0 0 5px 0;
+  }
+
   &:hover {
     box-shadow: $shadow-5px;
     scale: 1.05;
   }
 
   img {
-    min-height: 300px;
-    max-height: 350px;
-    -o-object-fit: contain;
-    object-fit: contain;
-    -o-object-position: center;
+    height: 350px;
+    object-fit: cover;
     object-position: center;
     margin-bottom: auto;
+
+    @media screen and (max-width: $screen-phone) {
+      height: 225px;
+    }
   }
 
   .name {
     text-transform: uppercase;
     @include textStyle($main-font, 16px, 400, $brown-dark);
     margin-top: 5px;
+
+    @media screen and (max-width: $screen-phone) {
+      @include textStyle($main-font, 14px, 400, $brown-dark);
+    }
   }
 
   .price {
-    @include textStyle($main-font, 14px, 400, $brown);
+    @include textStyle($main-font, 18px, 600, $brown);
+
+    span {
+      margin-left: 5px;
+      @include textStyle($main-font, 16px, 400, $brown);
+      text-decoration: line-through;
+    }
+
+    @media screen and (max-width: $screen-phone) {
+      @include textStyle($main-font, 14px, 600, $brown);
+      span {
+        @include textStyle($main-font, 14px, 400, $brown);
+      }
+    }
   }
 
   .on_sale {
@@ -66,6 +88,24 @@
       span:last-of-type {
         @include textStyle($price-font, 20px, 600, $white);
         letter-spacing: 2px;
+      }
+    }
+
+    @media screen and (max-width: $screen-phone) {
+      width: 75px;
+      height: 37.5px;
+
+      p {
+        span:first-of-type {
+          @include textStyle($body-font-2, 8px, 400, $white);
+          letter-spacing: 1px;
+          text-align: center;
+        }
+        span:last-of-type {
+          @include textStyle($price-font, 16px, 600, $white);
+          letter-spacing: 2px;
+          text-align: center;
+        }
       }
     }
   }

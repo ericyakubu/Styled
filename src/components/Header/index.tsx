@@ -10,7 +10,9 @@ const Header: React.FC = () => {
       <Link to={"/"} className={classes.logo}>
         Styled
       </Link>
-      <LinksHead />
+      <div className={classes.links}>
+        <LinksHead />
+      </div>
       <Options />
     </header>
   );

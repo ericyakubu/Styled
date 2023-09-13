@@ -9,7 +9,7 @@
   top: 0;
   position: fixed;
 
-  padding: 20px 10vw;
+  padding: 20px 5vw;
   background-color: $grey-dark;
   z-index: 1000;
 }
@@ -18,4 +18,14 @@
   @include textStyle($main-font, 24px, 600, $grey);
   text-transform: uppercase;
   letter-spacing: 4px;
+}
+
+.links {
+  display: block;
+}
+
+@media screen and (max-width: $screen-phone) {
+  .links {
+    display: none;
+  }
 }

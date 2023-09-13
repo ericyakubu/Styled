@@ -8,9 +8,9 @@
 
   video {
     min-width: 100vw;
-    min-height: 650px;
+    min-height: 700px;
     width: 100vw;
-    height: 650px;
+    height: 700px;
     object-fit: cover;
   }
 
@@ -26,6 +26,12 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    @media screen and (max-width: $screen-phone) {
+      // padding: 35px 75px 45px;
+      padding: 35px 0;
+      width: 90%;
+      gap: 15px;
+    }
 
     &_txt {
       @include textStyle($body-font-3, 55px, 700, $grey-dark);
@@ -33,6 +39,10 @@
       white-space: nowrap;
       line-height: 1;
       text-transform: uppercase;
+
+      @media screen and (max-width: $screen-phone) {
+        @include textStyle($body-font-3, 28px, 700, $grey-dark);
+      }
     }
 
     &_btn {
@@ -40,6 +50,12 @@
       background: $grey-dark;
       letter-spacing: 2px;
       @include textStyle($main-font, 18px, 400, $white);
+
+      @media screen and (max-width: $screen-phone) {
+        text-align: center;
+        white-space: nowrap;
+        @include textStyle($main-font, 12px, 400, $white);
+      }
     }
   }
 

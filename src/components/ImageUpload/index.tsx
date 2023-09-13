@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { storage } from "../../components/Firebase";
+import { storage } from "../Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
-const Test: React.FC = () => {
+const ImageUpload: React.FC = () => {
   const [imageUpload, setImageUpload] = useState<File | undefined>();
-  // const [imageURL, setImageURL] = useState(null);
   const uploadImage = () => {
     if (!imageUpload) return;
     const imageRef = ref(storage, `styled-users/${imageUpload.name + v4()}`);
@@ -30,4 +29,4 @@ const Test: React.FC = () => {
   );
 };
 
-export default Test;
+export default ImageUpload;

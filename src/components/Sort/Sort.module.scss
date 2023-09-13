@@ -8,6 +8,10 @@
   gap: 15px;
   margin-bottom: 17px;
 
+  @media screen and (max-width: $screen-phone) {
+    justify-content: center;
+  }
+
   .label {
     @include textStyle($main-font, 26px, 500, $brown-dark);
   }

@@ -7,6 +7,8 @@ import { AppDispatch, RootState } from "../../redux";
 import CartItem from "./CartItem";
 import { immediateCheckout } from "../../redux/cart/asyncActions";
 
+import { FaCartShopping } from "react-icons/fa6";
+
 const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<AppDispatch>();
@@ -37,10 +39,23 @@ const Cart: React.FC = () => {
           </button>
         </section>
 
-        <section className={classes.list}>
-          {items.map((item, i) => (
-            <CartItem item={item} key={`item_in_cart_${i}`} />
-          ))}
+        <section
+          className={`${classes.list} ${
+            !items.length ? classes.empty_cart : ""
+          }`}
+        >
+          {items.length ? (
+            items.map((item, i) => (
+              <CartItem item={item} key={`item_in_cart_${i}`} />
+            ))
+          ) : (
+            <p className={classes.empty_cart_text}>
+              <span>Your cart is empty</span>
+              <span>
+                <FaCartShopping />
+              </span>
+            </p>
+          )}
         </section>
 
         <section className={classes.purchase}>

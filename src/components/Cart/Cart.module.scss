@@ -19,131 +19,43 @@
 .purchase {
   width: 40vw;
   min-width: 40vw;
+
+  @media screen and (max-width: $screen-phone) {
+    width: 100vw;
+  }
 }
 
 .cart_main {
-  background: $grey-light;
-  // height: 100vh;
-  // max-height: 100vh;
-
-  // overflow-y: hidden;
-  // position: fixed;
+  background: $grey;
 }
 
 .list {
   display: flex;
-  background: $grey-light;
+  background: $grey;
   flex-direction: column;
   position: relative;
   gap: 24px;
   padding: 70px 10% 70px 5%;
-  // overflow-y: auto;
-}
 
-.item {
-  display: flex;
-  position: relative;
-  gap: 15px;
-
-  &_img {
-    width: 130px;
-    height: 170px;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
-
-  &_details {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    @include textStyle($main-font, 20px, 500, $brown-dark);
-  }
-
-  &_name {
-    font-size: 22px;
-  }
-
-  &_price {
-    font-size: 20px;
-  }
-
-  &_size {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-
-    span {
-      text-transform: uppercase;
-      font-size: 18px;
-      // letter-spacing: 1px;
-    }
-  }
-
-  &_quantity {
-    margin: 0 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    @include textStyle($main-font, 16px, 500, $brown-dark);
-
-    &_controls {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 20px;
-      font-family: $body-font;
-
-      button {
-        background: $grey-light;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 26px;
-        border-radius: 10%;
-        box-shadow: $shadow-2px;
-        color: $brown;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(0, 0, 0, 0);
-
-        &:hover {
-          box-shadow: $shadow-4px;
-          border: 1px solid rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    width: calc(100% + 10px);
-    height: 1px;
-    position: absolute;
-    background: rgb(0, 0, 0, 0.1);
-    bottom: -12px;
-    left: -5px;
-    box-shadow: 0px 4px 8px rgba(171, 190, 209, 1);
+  @media screen and (max-width: $screen-phone) {
+    padding: 70px 5% 160px 5%;
   }
 }
 
 .options,
 .purchase {
   position: fixed;
-  // width: 100%;
   z-index: 1111;
   display: flex;
-  // padding: 0 10% 0 5%;
   right: -17px;
-  // width: 100%;
-  // max-width: 40vw;
   background: $body-background;
   align-items: center;
   height: 60px;
+
+  @media screen and (max-width: $screen-phone) {
+    right: 0;
+    background: none;
+  }
 }
 
 .options {
@@ -151,10 +63,14 @@
   align-items: center;
   justify-content: flex-end;
   padding: 10px 40px 10px 0;
+  background: $grey-light;
 
   button {
     font-size: 30px;
     background: none;
+  }
+  @media screen and (max-width: $screen-phone) {
+    padding: 10px 5vw 10px 0;
   }
 }
 
@@ -163,15 +79,54 @@
   justify-content: center;
   gap: 10px;
   padding: 10px 30px;
-  // @include textStyle($main-font, 20px, 500, $grey-light)
+  background: $grey-light;
   button {
     padding: 10px 20px;
     @include textStyle($main-font, 20px, 500, $grey-light);
     background: $brown-dark;
+    white-space: nowrap;
+    @media screen and (max-width: $screen-phone) {
+      width: 100%;
+    }
   }
 
   span {
     @include textStyle($main-font, 20px, 500, $brown-dark);
     margin-right: auto;
+  }
+
+  @media screen and (max-width: $screen-phone) {
+    span {
+      @include textStyle($main-font, 24px, 600, $brown-dark);
+      margin-bottom: 5px;
+      text-align: center;
+      width: 100%;
+    }
+    flex-direction: column;
+    height: fit-content;
+    gap: 5px;
+  }
+}
+
+.empty_cart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &_text {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    @include textStyle($main-font, 35px, 500, $brown-dark);
+
+    span {
+      :last-of-type {
+        font-size: 100px;
+      }
+    }
   }
 }

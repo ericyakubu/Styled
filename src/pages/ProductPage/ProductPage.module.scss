@@ -5,6 +5,12 @@
   display: flex;
   padding: max(10vh, 50px) max(10vw, 100px);
   gap: 25px;
+
+  @media screen and (max-width: $screen-phone) {
+    padding: 40px 5vw;
+    gap: 10px;
+    flex-direction: column;
+  }
 }
 
 .img_container {
@@ -42,12 +48,33 @@
       }
     }
   }
+
+  @media screen and (max-width: $screen-phone) {
+    width: 90vw;
+
+    .img_main {
+      width: 100%;
+      height: auto;
+      min-height: 400px;
+      max-height: 500px;
+    }
+
+    .imgs {
+      .img {
+        width: 80px;
+        height: 100px;
+      }
+    }
+  }
 }
 
 .product_info {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media screen and (max-width: $screen-phone) {
+    gap: 10px;
+  }
 }
 
 .name {
@@ -56,6 +83,11 @@
   align-items: flex-start;
   gap: 15px;
   margin-bottom: 10px;
+
+  @media screen and (max-width: $screen-phone) {
+    margin-top: 10px;
+    gap: 5px;
+  }
 
   h2 {
     line-height: 1;
@@ -90,9 +122,12 @@
     display: block;
     height: 1px;
     width: 90%;
-    // min-width: 500px;
     margin-top: 10px;
     background: $brown-dark;
+
+    @media screen and (max-width: $screen-phone) {
+      margin-top: 5px;
+    }
   }
 }
 
@@ -135,6 +170,10 @@
   min-height: 150px;
   @include textStyle($main-font, 16px, 400, $brown-dark);
   line-height: 1.5;
+
+  @media screen and (max-width: $screen-phone) {
+    width: 100%;
+  }
 }
 
 .sizes_container {
@@ -146,12 +185,10 @@
 }
 
 .sizes {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 45px);
   gap: 10px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 100%;
 
   .size {
     &_available,
@@ -178,7 +215,6 @@
       &:hover {
         box-shadow: $shadow-6px;
         font-weight: 600;
-        border-radius: 15%;
       }
     }
 
@@ -195,7 +231,6 @@
         display: block;
         width: 140%;
         height: 1px;
-        // background: $grey;
       }
 
       &::after {
@@ -209,7 +244,6 @@
     &_selected {
       background: $brown-dark;
       @include textStyle($main-font, 16px, 500, rgba(255, 255, 255, 0.8));
-      border-radius: 15%;
     }
   }
 }

@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import classes from "./Search.module.scss";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setFilterName } from "../../../../redux/filter";
+import { setOpenMenu } from "../../../../redux/menu";
 
 const Search: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>();
@@ -17,7 +18,7 @@ const Search: React.FC = () => {
   const handleSearch = () => {
     //TODO add search functionality
     dispatch(setFilterName(searchInput));
-    // console.log(searchInput);
+    dispatch(setOpenMenu(false));
   };
 
   return (

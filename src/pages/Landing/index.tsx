@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import classes from "./Landing.module.scss";
 import Hero from "../../components/Hero";
+
 import LandingOffers from "../../components/LandingOffers";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { useAppDispatch } from "../../redux/hooks";
@@ -15,9 +17,7 @@ const Landing: React.FC = () => {
     dispatch(removeOldProduct());
   }, []);
 
-  useEffect(() => {
-    // console.log(products);
-  }, [products]);
+  useEffect(() => {}, [products]);
 
   return (
     <>

@@ -20,4 +20,26 @@
     color: $white;
     font-weight: 500;
   }
+
+  @media screen and (max-width: $screen-phone) {
+    flex-direction: column;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      &:after {
+        content: "";
+        display: block;
+        width: 80vw;
+        height: 1px;
+        background: $grey-light;
+        margin-top: 10px;
+        transform: translateX(-10px);
+      }
+    }
+  }
 }

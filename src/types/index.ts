@@ -42,7 +42,7 @@ export interface CartItemType {
   name: string;
   price: number;
   quantity: number;
-  size: string | number;
+  size?: string | number;
 }
 export interface UserType {
   name: string;

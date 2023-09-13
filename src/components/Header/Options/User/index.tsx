@@ -24,10 +24,6 @@ const User: React.FC = () => {
       <button className={classes.user} onClick={handleOpenUser}>
         <FaUserAlt />
       </button>
-      {/* <div >
-        <button>login</button>
-        <button>Signup</button>
-      </div> */}
     </>
   );
 };

@@ -10,12 +10,12 @@
   background: none;
 
   .search_txt {
-    padding: 5px 0 5px 0;
-    width: 0px;
     background: $grey;
     @include textStyle($main-font, 20px, 500, $grey-dark);
     transition: all 0.3s ease;
-    opacity: 0;
+    width: 225px;
+    padding: 5px 30px 5px 10px;
+    opacity: 1;
   }
 
   .icon {
@@ -23,7 +23,7 @@
     background: none;
     position: absolute;
     z-index: 2;
-    color: $grey;
+    color: $grey-dark;
     top: 50%;
     transform: translateY(-40%);
     right: 5px;
@@ -34,15 +34,14 @@
     }
   }
 
-  // &:hover {
-  .search_txt {
-    width: 225px;
-    padding: 5px 30px 5px 10px;
-    opacity: 1;
+  @media screen and (max-width: $screen-phone) {
+    width: 100%;
+    padding: 0 5vw;
+    .search_txt {
+      width: 100%;
+    }
+    .icon {
+      right: calc(5px + 5vw);
+    }
   }
-
-  .icon {
-    color: $grey-dark;
-  }
-  // }
 }
