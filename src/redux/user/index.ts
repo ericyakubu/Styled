@@ -33,7 +33,6 @@ export const user = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload.data.user;
-      console.log(action.payload);
     });
   },
 });

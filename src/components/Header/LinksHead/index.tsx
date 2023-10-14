@@ -19,7 +19,6 @@ const LinksHead: React.FC = () => {
     dispatch(setFilterSale(onSale));
     handleCloseMenu();
   };
-  //TODO add navigation
   return (
     <nav className={classes.links}>
       <NavLink

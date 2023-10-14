@@ -33,15 +33,10 @@ export const ProductsApi = {
     sort,
     onSale,
     filters,
-  }: // filterName,
-  // filterCategories,
-  // filterPrices,
-  // filterSizes,
-  getProductsType) => {
+  }: getProductsType) => {
     let queryParams = `?page=${pageNumber}`;
     const { name, sizes, categories, prices } = filters;
 
-    //set page limit and sorting
     queryParams += pageSize ? `&limit=${pageSize}` : "";
     queryParams += sort ? `&sort=${sort}` : "";
     queryParams += onSale ? `&onSale=true` : "";
@@ -54,23 +49,8 @@ export const ProductsApi = {
       ? `${categories.map((category) => `&category=${category}`)}`
       : "";
 
-    // //filter by prices
-    // queryParams += filterPrices.min ? `&price[gte]=${filterPrices.min}` : "";
-    // queryParams += filterPrices.max ? `&price[lte]=${filterPrices.max}` : "";
-    // queryParams += filterName ? `&name=${filterName}` : "";
-
-    // //filter by sizes and categories
-    // queryParams += filterSizes
-    //   ? `${filterSizes.map((size) => `&sizes=${size}`)}`
-    //   : "";
-    // queryParams += filterCategories
-    //   ? `${filterCategories.map((category) => `&category=${category}`)}`
-    //   : "";
-
-    // console.log(queryParams);
-
     return axios
-      .get(`${apiConfig.products}` + queryParams)
+      .get(`${apiConfig.products}${queryParams}`)
       .then((res) => res.data);
   },
 };

@@ -24,7 +24,9 @@ const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   axios.defaults.withCredentials = true;
 
-  const filter = useSelector((state: RootState) => state.filter);
+  const { showMore, ...filterWithourShowMore } = useSelector(
+    (state: RootState) => state.filter
+  );
 
   useEffect(() => {
     //TODO fix this error
@@ -33,7 +35,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [filter]);
+  }, [filterWithourShowMore]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(

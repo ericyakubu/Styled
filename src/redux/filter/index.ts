@@ -8,6 +8,7 @@ interface initialStateType {
   pageSize: number | null;
   productsNumber: number;
   onSale: boolean;
+  showMore: boolean;
 
   sort: string | null;
   filters: filterType;
@@ -26,6 +27,7 @@ const initialState: initialStateType = {
   pageSize: null,
   productsNumber: 0,
   onSale: false,
+  showMore: true,
 
   sort: null,
   filters: {
@@ -52,60 +54,63 @@ export const filterRedux = createSlice({
   reducers: {
     setFilters: (state, action) => {
       state.filters = action.payload;
+      state.showMore = true;
+    },
+    setShowMore: (state) => {
+      state.showMore = !state.showMore;
     },
     setPageNumber: (state, action) => {
       state.pageNumber = action.payload;
+      state.showMore = true;
     },
     setFilterName: (state, action) => {
       state.filterName = action.payload;
+      state.showMore = true;
     },
     setFilterPrices: (state, action) => {
       if (action.payload[0] === "min")
         state.filterPrices.min = action.payload[1];
       if (action.payload[0] === "max")
         state.filterPrices.max = action.payload[1];
+      state.showMore = true;
     },
     setFilterCategories: (state, action) => {
-      // if (state.filterCategories.includes(action.payload)) {
-      //   state.filterCategories = state.filterCategories.filter(
-      //     (cat) => cat !== action.payload
-      //   );
-      // } else {
-      //   state.filterCategories = [...state.filterCategories, action.payload];
-      // }
       state.filterCategories = action.payload;
     },
     setFilterSale: (state, action) => {
       state.onSale = action.payload;
+      state.showMore = true;
     },
     setFilterSizes: (state, action) => {
-      // if (state.filterSizes.includes(action.payload)) {
-      //   state.filterSizes = state.filterSizes.filter(
-      //     (size) => size !== action.payload
-      //   );
-      // } else {
-      //   state.filterSizes = [...state.filterSizes, action.payload];
-      // }
       state.filterSizes = action.payload;
+      state.showMore = true;
     },
     setSortCategory: (state, action) => {
-      console.log(action.payload);
       if (action.payload === SortCategories.SORT_BY) {
         state.sort = "";
       } else {
         state.sort = action.payload;
       }
+      state.showMore = true;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
-      state.productsNumber = action.payload.results;
+      if (
+        (state.pageSize && action.payload.results >= state.pageSize) ||
+        action.payload.results >= 18
+      ) {
+        state.showMore = true;
+      } else {
+        state.showMore = false;
+      }
     });
   },
 });
 
 export const {
   setFilters,
+  setShowMore,
   setPageNumber,
   setFilterCategories,
   setFilterSizes,

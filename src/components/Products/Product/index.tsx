@@ -35,7 +35,11 @@ const Product: React.FC<Props> = ({ product }) => {
           <img src={product.imageCover} alt={product.name} />
           <h6 className={classes.name}>{product.name}</h6>
           <h6 className={classes.price}>
-            {onSale ? <>${finalPrice}</> : <>${product.price.toFixed(2)}</>}
+            {onSale ? (
+              <>${finalPrice}</>
+            ) : (
+              <>${product.price ? product.price.toFixed(2) : null}</>
+            )}
             {onSale ? <span>was: ${product.price}</span> : null}
           </h6>
 

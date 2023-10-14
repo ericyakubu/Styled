@@ -51,7 +51,18 @@ export const products = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products = action.payload.data;
+
+        if (!state.products.length) {
+          state.products = action.payload.data;
+        } else {
+          // state.products.push(action.payload.data);
+
+          action.payload.data.forEach((e: ProductsType) => {
+            const i = state.products.findIndex((prod) => prod.id === e.id);
+            if (i === -1) state.products.push(e);
+          });
+          // state.products = [...state.products, ...action.payload.data];
+        }
       });
   },
 });

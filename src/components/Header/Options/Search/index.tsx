@@ -16,7 +16,6 @@ const Search: React.FC = () => {
   };
 
   const handleSearch = () => {
-    //TODO add search functionality
     dispatch(setFilterName(searchInput));
     dispatch(setOpenMenu(false));
   };

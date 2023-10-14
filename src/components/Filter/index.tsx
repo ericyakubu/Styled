@@ -8,7 +8,6 @@ import { setFilters } from "../../redux/filter";
 import { filterType } from "../../types";
 
 const Filter: React.FC = () => {
-  //TODO needs refactoring
   const dispatch = useDispatch<AppDispatch>();
   const { filters } = useSelector((state: RootState) => state.filter);
   const [selectedFilters, setSelectedFilters] = useState<filterType>(filters);
@@ -100,7 +99,6 @@ const Filter: React.FC = () => {
   };
 
   const handleRemoveFilters = () => {
-    // console.log("removed");
     setSelectedFilters((prev) => ({
       ...prev,
       categories: [],
@@ -137,7 +135,6 @@ const Filter: React.FC = () => {
     setDisabled(check);
   }, [selectedFilters]);
 
-  //TODO add plus-minus animation on filter openning
   return (
     <div className={classes.container}>
       <div className={classes.sticky}>

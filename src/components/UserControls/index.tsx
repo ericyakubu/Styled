@@ -18,12 +18,6 @@ const UserControls: React.FC = () => {
   const handleImage = (file: File) => {
     if (file === null) return;
     setImgFile(file);
-    // const imageRef = ref(storage, `styled-users/${file.name + v4()}`);
-    // uploadBytes(imageRef, file).then(() => {
-    //   getDownloadURL(imageRef)
-    //     .then((res) => setImageURL(res))
-    //     .catch((err) => console.log(err));
-    // });
   };
 
   const handleUploadImage = () => {
