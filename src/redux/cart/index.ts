@@ -31,7 +31,7 @@ export const cart = createSlice({
       action.payload.forEach((newItem: CartItemType) => {
         const found: CartItemType | undefined = state.items.find(
           (oldItem) =>
-            oldItem.name === newItem.name && oldItem.size === newItem.size
+            oldItem.id === newItem.id && oldItem.size === newItem.size
         );
 
         if (found) {

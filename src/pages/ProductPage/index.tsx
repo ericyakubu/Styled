@@ -13,6 +13,7 @@ import { immediateCheckout } from "../../redux/cart/asyncActions";
 const ProductPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { product } = useSelector((state: RootState) => state.products);
+  const { items } = useSelector((state: RootState) => state.cart);
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [priceOriginal, setPriceOriginal] = useState<number>(0);
   const [sizesAvailable, setSizesAvailable] = useState<(string | number)[]>([]);
@@ -21,29 +22,48 @@ const ProductPage: React.FC = () => {
   const [stars, setStars] = useState<string[]>([]);
   const [chozenImg, setChosenImg] = useState<number>(0);
 
+  let newCartItem: CartItemType;
+  let discount;
+
   const images: string[] = product
     ? [product.imageCover, ...product.images]
     : [""];
 
   const { id } = useParams();
 
-  let discount;
+  if (product)
+    discount = product.discount
+      ? product.discount
+      : product.priceDiscount
+      ? Math.ceil((product.priceDiscount / product.price) * 100)
+      : null;
 
-  if (product?.discount) discount = product.discount;
-  if (product?.priceDiscount) {
-    discount = Math.ceil((product.priceDiscount / product.price) * 100);
-  }
-
-  const handleAddToCartHolder = (size: string | number) => {
-    if (!product) return;
-    const newCartItem: CartItemType = {
+  if (product)
+    newCartItem = {
       id: product.id,
       imageCover: product.imageCover,
       name: product.name,
       price: finalPrice,
       quantity: 1,
-      size,
     };
+
+  // if (product?.discount) discount = product.discount;
+  // if (product?.priceDiscount) {
+  //   discount = Math.ceil((product.priceDiscount / product.price) * 100);
+  // }
+
+  const handleAddToCartHolder = (size: string | number) => {
+    if (!product) return;
+
+    newCartItem.size = size;
+    // const newCartItem: CartItemType = {
+    //   id: product.id,
+    //   imageCover: product.imageCover,
+    //   name: product.name,
+    //   price: finalPrice,
+    //   quantity: 1,
+    //   size,
+    // };
 
     const find = cart.find((item) => item.size === newCartItem.size);
 
@@ -63,19 +83,19 @@ const ProductPage: React.FC = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    const newCartItem: CartItemType[] = [
-      {
-        id: product.id,
-        imageCover: product.imageCover,
-        name: product.name,
-        price: finalPrice,
-        quantity: 1,
-      },
-    ];
-
     product.sizes.length || product.sizesShoes.length
       ? dispatch(addToCart(cart))
       : dispatch(addToCart(newCartItem));
+
+    // const newCartItem: CartItemType[] = [
+    //   {
+    //     id: product.id,
+    //     imageCover: product.imageCover,
+    //     name: product.name,
+    //     price: finalPrice,
+    //     quantity: 1,
+    //   },
+    // ];
   };
 
   const handleChangeImg = (index: number) => {
@@ -84,8 +104,33 @@ const ProductPage: React.FC = () => {
 
   const handleImmediateCheckout = () => {
     if (!product) return;
-    const checkoutItems = [...cart];
-    dispatch(immediateCheckout(checkoutItems));
+    if (items.length === 0) return dispatch(immediateCheckout([newCartItem]));
+
+    // const newCartItem: CartItemType = {
+    //   id: product.id,
+    //   imageCover: product.imageCover,
+    //   name: product.name,
+    //   price: finalPrice,
+    //   quantity: 1,
+    // };
+
+    const checkoutItems: CartItemType[] = [...items, newCartItem];
+    const oldItems: CartItemType[] = [...items];
+
+    const found: CartItemType | undefined = oldItems.find(
+      (oldItem) =>
+        oldItem.id === newCartItem.id && oldItem.size === newCartItem.size
+    );
+
+    if (found) {
+      const index = oldItems.indexOf(found);
+      const newItem = { ...found };
+      newItem.quantity++;
+      oldItems.splice(index, 1, newItem);
+      dispatch(immediateCheckout(oldItems));
+    } else {
+      dispatch(immediateCheckout(checkoutItems));
+    }
   };
 
   useEffect(() => {
@@ -101,30 +146,38 @@ const ProductPage: React.FC = () => {
       let half = product.ratingsAverage % 1;
       let finalPrice: number = 0;
 
-      const test = [];
+      // newCartItem = {
+      //   id: product.id,
+      //   imageCover: product.imageCover,
+      //   name: product.name,
+      //   price: finalPrice,
+      //   quantity: 1,
+      // };
+
+      const starsArr = [];
       if (half !== 0) {
         full = (product.ratingsAverage - half) / 1;
         half = 1;
         empty = total - full - half;
 
         for (let i = 1; i <= full; i++) {
-          test.push("full");
+          starsArr.push("full");
         }
-        test.push("half");
+        starsArr.push("half");
         for (let i = 1; i <= empty; i++) {
-          test.push("empty");
+          starsArr.push("empty");
         }
       } else {
         full = product.ratingsAverage;
         empty = total - full;
         for (let i = 1; i <= full; i++) {
-          test.push("full");
+          starsArr.push("full");
         }
         for (let i = 1; i <= empty; i++) {
-          test.push("empty");
+          starsArr.push("empty");
         }
       }
-      setStars(test);
+      setStars(starsArr);
 
       if (product.sizes.length) setSizesAvailable(product.sizes);
       if (product.sizesShoes.length) setSizesAvailable(product.sizesShoes);
