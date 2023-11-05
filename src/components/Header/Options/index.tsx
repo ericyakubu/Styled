@@ -11,7 +11,6 @@ import { setOpenMenu } from "../../../redux/menu";
 import { MdClose } from "react-icons/md";
 
 const Options: React.FC = () => {
-  //TODO add options
   const { openMenu } = useSelector((state: RootState) => state.menu);
   const dispatch = useAppDispatch();
   const handleToggleMenu = () => {

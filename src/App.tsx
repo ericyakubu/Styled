@@ -30,7 +30,6 @@ const App: React.FC = () => {
   );
 
   useEffect(() => {
-    //TODO fix this error
     dispatch(getTopProducts());
   }, []);
 

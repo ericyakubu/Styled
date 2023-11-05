@@ -137,7 +137,7 @@ const Filter: React.FC = () => {
       <div className={classes.container}>
         <div className={classes.sticky}>
           <p className={classes.title}>Filter by</p>
-          <section>
+          <div className={classes.section}>
             <button
               className={classes.sub_title}
               onClick={() => handleFiltersOpen(FilterCategories.PRICE)}
@@ -172,8 +172,8 @@ const Filter: React.FC = () => {
                 onChange={() => handlePriceFilter("max")}
               />
             </div>
-          </section>
-          <section>
+          </div>
+          <div className={classes.section}>
             <button
               className={classes.sub_title}
               onClick={() => handleFiltersOpen(FilterCategories.CATEGORY)}
@@ -201,8 +201,8 @@ const Filter: React.FC = () => {
                 </p>
               ))}
             </div>
-          </section>
-          <section>
+          </div>
+          <div className={classes.section}>
             <button
               className={classes.sub_title}
               onClick={() => handleFiltersOpen(FilterCategories.SIZE)}
@@ -228,7 +228,7 @@ const Filter: React.FC = () => {
                 </p>
               ))}
             </div>
-          </section>
+          </div>
           <button
             className={`${classes.removeFilters} ${
               disabled ? classes.disabled : ""

@@ -7,7 +7,6 @@ import { RootState } from "../../redux";
 const Products: React.FC = () => {
   const { products } = useSelector((state: RootState) => state.products);
 
-  //TODO add loading circle
   return (
     <div className={classes.container}>
       {products.map((product, i) => (

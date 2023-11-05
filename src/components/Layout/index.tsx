@@ -6,14 +6,12 @@ import Cart from "../Cart";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import Pagination from "../Pagination";
-import UserModals from "../UserModals";
 import Menu from "../Menu";
 
 const Layout: React.FC = () => {
   const location = useLocation();
 
   const { showCart } = useSelector((state: RootState) => state.cart);
-  const { userModals } = useSelector((state: RootState) => state.user);
   const { openMenu } = useSelector((state: RootState) => state.menu);
   return (
     <>
@@ -22,7 +20,6 @@ const Layout: React.FC = () => {
       <main>
         <Outlet />
       </main>
-      {userModals ? <UserModals /> : null}
       {location.pathname === "/shop" ? <Pagination /> : null}
       {openMenu ? <Menu /> : null}
       <Footer />

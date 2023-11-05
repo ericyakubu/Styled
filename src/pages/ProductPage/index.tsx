@@ -47,23 +47,10 @@ const ProductPage: React.FC = () => {
       quantity: 1,
     };
 
-  // if (product?.discount) discount = product.discount;
-  // if (product?.priceDiscount) {
-  //   discount = Math.ceil((product.priceDiscount / product.price) * 100);
-  // }
-
   const handleAddToCartHolder = (size: string | number) => {
     if (!product) return;
 
     newCartItem.size = size;
-    // const newCartItem: CartItemType = {
-    //   id: product.id,
-    //   imageCover: product.imageCover,
-    //   name: product.name,
-    //   price: finalPrice,
-    //   quantity: 1,
-    //   size,
-    // };
 
     const find = cart.find((item) => item.size === newCartItem.size);
 
@@ -85,17 +72,7 @@ const ProductPage: React.FC = () => {
     if (!product) return;
     product.sizes.length || product.sizesShoes.length
       ? dispatch(addToCart(cart))
-      : dispatch(addToCart(newCartItem));
-
-    // const newCartItem: CartItemType[] = [
-    //   {
-    //     id: product.id,
-    //     imageCover: product.imageCover,
-    //     name: product.name,
-    //     price: finalPrice,
-    //     quantity: 1,
-    //   },
-    // ];
+      : dispatch(addToCart([newCartItem]));
   };
 
   const handleChangeImg = (index: number) => {
@@ -105,14 +82,6 @@ const ProductPage: React.FC = () => {
   const handleImmediateCheckout = () => {
     if (!product) return;
     if (items.length === 0) return dispatch(immediateCheckout([newCartItem]));
-
-    // const newCartItem: CartItemType = {
-    //   id: product.id,
-    //   imageCover: product.imageCover,
-    //   name: product.name,
-    //   price: finalPrice,
-    //   quantity: 1,
-    // };
 
     const checkoutItems: CartItemType[] = [...items, newCartItem];
     const oldItems: CartItemType[] = [...items];
@@ -139,20 +108,11 @@ const ProductPage: React.FC = () => {
 
   useEffect(() => {
     if (product) {
-      //TODO needs refactoring
       const total = 5;
       let full;
       let empty;
       let half = product.ratingsAverage % 1;
       let finalPrice: number = 0;
-
-      // newCartItem = {
-      //   id: product.id,
-      //   imageCover: product.imageCover,
-      //   name: product.name,
-      //   price: finalPrice,
-      //   quantity: 1,
-      // };
 
       const starsArr = [];
       if (half !== 0) {
@@ -196,7 +156,6 @@ const ProductPage: React.FC = () => {
     }
   }, [product]);
 
-  //TODO add loading circle
   return (
     <div className={classes.container}>
       {product && (
