@@ -19,11 +19,13 @@ import Payment from "./pages/Payment";
 import { getTopProducts } from "./redux/products/asyncActions";
 import { getProducts } from "./redux/filter/asyncActions";
 import { AppDispatch, RootState } from "./redux";
+import { removeOldProducts } from "./redux/products";
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   axios.defaults.withCredentials = true;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { showMore, ...filterWithourShowMore } = useSelector(
     (state: RootState) => state.filter
   );
@@ -34,6 +36,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(removeOldProducts());
     dispatch(getProducts());
   }, [filterWithourShowMore]);
 

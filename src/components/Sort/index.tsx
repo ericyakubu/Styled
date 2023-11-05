@@ -30,6 +30,7 @@ const Sort: React.FC = () => {
   const handleSelectCategory = (category: { [key: string]: string }) => {
     setShowOpt(false);
     setSelectedCategory(category.name);
+
     dispatch(setSortCategory(category.value));
   };
 

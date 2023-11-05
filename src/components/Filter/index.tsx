@@ -94,10 +94,7 @@ const Filter: React.FC = () => {
     setDisabled(false);
   };
 
-  const handleApplyFilters = () => {
-    dispatch(setFilters(selectedFilters));
-  };
-
+  const handleApplyFilters = () => dispatch(setFilters(selectedFilters));
   const handleRemoveFilters = () => {
     setSelectedFilters((prev) => ({
       ...prev,
@@ -136,114 +133,116 @@ const Filter: React.FC = () => {
   }, [selectedFilters]);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.sticky}>
-        <p className={classes.title}>Filter by</p>
-        <section>
+    <>
+      <div className={classes.container}>
+        <div className={classes.sticky}>
+          <p className={classes.title}>Filter by</p>
+          <section>
+            <button
+              className={classes.sub_title}
+              onClick={() => handleFiltersOpen(FilterCategories.PRICE)}
+            >
+              <span>Price</span> <BiPlus />
+            </button>
+            <div
+              className={`${classes.price_inputs} ${
+                priceToggle ? classes.show : classes.hide
+              }`}
+            >
+              <input
+                type="number"
+                name="min_price"
+                ref={minRef}
+                min={0}
+                max={9998}
+                value={selectedFilters.prices.min || ""}
+                id=""
+                placeholder="Min"
+                onChange={() => handlePriceFilter("min")}
+              />
+              <input
+                type="number"
+                name="max_price"
+                ref={maxRef}
+                min={1}
+                max={9999}
+                value={selectedFilters.prices.max || ""}
+                id=""
+                placeholder="Max"
+                onChange={() => handlePriceFilter("max")}
+              />
+            </div>
+          </section>
+          <section>
+            <button
+              className={classes.sub_title}
+              onClick={() => handleFiltersOpen(FilterCategories.CATEGORY)}
+            >
+              <span>Category</span> <BiPlus />
+            </button>
+            <div
+              className={`${classes.categories} ${
+                categoryToggle ? classes.show : classes.hide
+              }`}
+            >
+              {Categories.map((category, i) => (
+                <p key={i} className={classes.category}>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id=""
+                    checked={selectedFilters.categories.includes(category)}
+                    value={category}
+                    onChange={() =>
+                      handleFilter(FilterCategories.CATEGORY, category)
+                    }
+                  />
+                  <span>{category}</span>
+                </p>
+              ))}
+            </div>
+          </section>
+          <section>
+            <button
+              className={classes.sub_title}
+              onClick={() => handleFiltersOpen(FilterCategories.SIZE)}
+            >
+              <span>Size</span> <BiPlus />
+            </button>
+            <div
+              className={`${classes.sizes} ${
+                sizeToggle ? classes.show : classes.hide
+              }`}
+            >
+              {Sizes.map((size, i) => (
+                <p key={i} className={classes.size}>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id=""
+                    checked={selectedFilters.sizes.includes(size)}
+                    value={size}
+                    onChange={() => handleFilter(FilterCategories.SIZE, size)}
+                  />
+                  <span>{size}</span>
+                </p>
+              ))}
+            </div>
+          </section>
           <button
-            className={classes.sub_title}
-            onClick={() => handleFiltersOpen(FilterCategories.PRICE)}
-          >
-            <span>Price</span> <BiPlus />
-          </button>
-          <div
-            className={`${classes.price_inputs} ${
-              priceToggle ? classes.show : classes.hide
+            className={`${classes.removeFilters} ${
+              disabled ? classes.disabled : ""
             }`}
+            onClick={handleRemoveFilters}
           >
-            <input
-              type="number"
-              name="min_price"
-              ref={minRef}
-              min={0}
-              max={9998}
-              value={selectedFilters.prices.min || ""}
-              id=""
-              placeholder="Min"
-              onChange={() => handlePriceFilter("min")}
-            />
-            <input
-              type="number"
-              name="max_price"
-              ref={maxRef}
-              min={1}
-              max={9999}
-              value={selectedFilters.prices.max || ""}
-              id=""
-              placeholder="Max"
-              onChange={() => handlePriceFilter("max")}
-            />
-          </div>
-        </section>
-        <section>
-          <button
-            className={classes.sub_title}
-            onClick={() => handleFiltersOpen(FilterCategories.CATEGORY)}
-          >
-            <span>Category</span> <BiPlus />
+            Reset filters
           </button>
-          <div
-            className={`${classes.categories} ${
-              categoryToggle ? classes.show : classes.hide
-            }`}
-          >
-            {Categories.map((category, i) => (
-              <p key={i} className={classes.category}>
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  checked={selectedFilters.categories.includes(category)}
-                  value={category}
-                  onChange={() =>
-                    handleFilter(FilterCategories.CATEGORY, category)
-                  }
-                />
-                <span>{category}</span>
-              </p>
-            ))}
-          </div>
-        </section>
-        <section>
-          <button
-            className={classes.sub_title}
-            onClick={() => handleFiltersOpen(FilterCategories.SIZE)}
-          >
-            <span>Size</span> <BiPlus />
+          <button className={classes.applyFilters} onClick={handleApplyFilters}>
+            Apply filters
           </button>
-          <div
-            className={`${classes.sizes} ${
-              sizeToggle ? classes.show : classes.hide
-            }`}
-          >
-            {Sizes.map((size, i) => (
-              <p key={i} className={classes.size}>
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  checked={selectedFilters.sizes.includes(size)}
-                  value={size}
-                  onChange={() => handleFilter(FilterCategories.SIZE, size)}
-                />
-                <span>{size}</span>
-              </p>
-            ))}
-          </div>
-        </section>
-        <button
-          className={`${classes.removeFilters} ${
-            disabled ? classes.disabled : ""
-          }`}
-          onClick={handleRemoveFilters}
-        >
-          Reset filters
-        </button>
-        <button className={classes.applyFilters} onClick={handleApplyFilters}>
-          Apply filters
-        </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

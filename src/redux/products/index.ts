@@ -29,6 +29,9 @@ export const products = createSlice({
     removeOldProduct: (state) => {
       delete state.product;
     },
+    removeOldProducts: (state) => {
+      state.products = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,6 +54,7 @@ export const products = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
+        console.log(action.payload.data);
 
         if (!state.products.length) {
           state.products = action.payload.data;
@@ -67,6 +71,6 @@ export const products = createSlice({
   },
 });
 
-export const { removeOldProduct } = products.actions;
+export const { removeOldProduct, removeOldProducts } = products.actions;
 
 export default products.reducer;
