@@ -12,7 +12,6 @@ import "./styles/global.scss";
 import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
 import ProductPage from "./pages/ProductPage";
-import UserPage from "./pages/UserPage";
 import Shop from "./pages/Shop";
 import Payment from "./pages/Payment";
 
@@ -46,8 +45,8 @@ const App: React.FC = () => {
         <Route index element={<Landing />} />
         <Route path="shop" element={<Shop />} />
         <Route path="product/:id" element={<ProductPage />} />
-        <Route path="user" element={<UserPage />} />
         <Route path="payment" element={<Payment />} />
+        <Route path="*" element={<Landing />} />
       </Route>
     )
   );
