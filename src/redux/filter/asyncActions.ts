@@ -13,10 +13,6 @@ export const getProducts = createAsyncThunk(
       sort: filterState.sort,
       onSale: filterState.onSale,
       filters: filterState.filters,
-      filterName: filterState.filterName,
-      filterCategories: filterState.filterCategories,
-      filterPrices: filterState.filterPrices,
-      filterSizes: filterState.filterSizes,
     });
   }
 );

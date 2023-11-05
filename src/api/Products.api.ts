@@ -9,13 +9,6 @@ interface getProductsType {
   onSale: boolean;
   sort: string | null;
   filters: filterType;
-  filterName: string;
-  filterCategories: string[];
-  filterSizes: string[];
-  filterPrices: {
-    min: number | null;
-    max: number | null;
-  };
 }
 
 export const ProductsApi = {

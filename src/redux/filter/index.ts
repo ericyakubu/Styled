@@ -12,14 +12,6 @@ interface initialStateType {
 
   sort: string | null;
   filters: filterType;
-
-  filterName: string;
-  filterCategories: string[];
-  filterSizes: string[];
-  filterPrices: {
-    min: number | null;
-    max: number | null;
-  };
 }
 
 const initialState: initialStateType = {
@@ -39,13 +31,6 @@ const initialState: initialStateType = {
       max: null,
     },
   },
-  filterName: "",
-  filterCategories: [],
-  filterSizes: [],
-  filterPrices: {
-    min: null,
-    max: null,
-  },
 };
 
 export const filterRedux = createSlice({
@@ -64,25 +49,11 @@ export const filterRedux = createSlice({
       state.showMore = true;
     },
     setFilterName: (state, action) => {
-      state.filterName = action.payload;
+      state.filters.name = action.payload;
       state.showMore = true;
-    },
-    setFilterPrices: (state, action) => {
-      if (action.payload[0] === "min")
-        state.filterPrices.min = action.payload[1];
-      if (action.payload[0] === "max")
-        state.filterPrices.max = action.payload[1];
-      state.showMore = true;
-    },
-    setFilterCategories: (state, action) => {
-      state.filterCategories = action.payload;
     },
     setFilterSale: (state, action) => {
       state.onSale = action.payload;
-      state.showMore = true;
-    },
-    setFilterSizes: (state, action) => {
-      state.filterSizes = action.payload;
       state.showMore = true;
     },
     setSortCategory: (state, action) => {
@@ -112,9 +83,6 @@ export const {
   setFilters,
   setShowMore,
   setPageNumber,
-  setFilterCategories,
-  setFilterSizes,
-  setFilterPrices,
   setSortCategory,
   setFilterSale,
   setFilterName,
