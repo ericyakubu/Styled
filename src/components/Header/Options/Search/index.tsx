@@ -1,38 +1,31 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 import classes from "./Search.module.scss";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setFilterName } from "../../../../redux/filter";
 import { setOpenMenu } from "../../../../redux/menu";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+type Inputs = {
+  name: string;
+};
 
 const Search: React.FC = () => {
-  const [searchInput, setSearchInput] = useState<string>();
   const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { handleSubmit, register } = useForm();
 
-  const handleSearchUpdate = () => {
-    if (!inputRef.current) return;
-    setSearchInput(inputRef.current.value);
-  };
-
-  const handleSearch = () => {
-    dispatch(setFilterName(searchInput));
+  const handleSearch: SubmitHandler<Inputs> = (data) => {
+    dispatch(setFilterName(data.name));
     dispatch(setOpenMenu(false));
   };
 
   return (
-    <div className={classes.container}>
-      <input
-        type="text"
-        name=""
-        className={classes.search_txt}
-        ref={inputRef}
-        onChange={handleSearchUpdate}
-      />
-      <button className={classes.icon} onClick={handleSearch}>
+    <form className={classes.container} onSubmit={handleSubmit(handleSearch)}>
+      <input type="text" {...register("name")} className={classes.search_txt} />
+      <button className={classes.icon} type="submit">
         <FaSearch />
       </button>
-    </div>
+    </form>
   );
 };
 
