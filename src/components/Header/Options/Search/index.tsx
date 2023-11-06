@@ -4,17 +4,13 @@ import classes from "./Search.module.scss";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setFilterName } from "../../../../redux/filter";
 import { setOpenMenu } from "../../../../redux/menu";
-import { useForm, SubmitHandler } from "react-hook-form";
-
-type Inputs = {
-  name: string;
-};
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
 const Search: React.FC = () => {
   const dispatch = useAppDispatch();
   const { handleSubmit, register } = useForm();
 
-  const handleSearch: SubmitHandler<Inputs> = (data) => {
+  const handleSearch: SubmitHandler<FieldValues> = (data) => {
     dispatch(setFilterName(data.name));
     dispatch(setOpenMenu(false));
   };
