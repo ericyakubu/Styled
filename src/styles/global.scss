@@ -9,11 +9,14 @@
 body {
   padding-top: 69px;
   background-color: $body-background;
+  max-width: 100vw;
   overflow-x: hidden;
-  position: relative;
 
+  position: relative;
   &::-webkit-scrollbar {
     background: $grey;
+    width: 10px;
+    height: 10px;
   }
 
   &::-webkit-scrollbar-track {

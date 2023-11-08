@@ -13,18 +13,12 @@ const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<AppDispatch>();
   const containerRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const shoppingRef = useRef<HTMLButtonElement>(null);
-
   const closeContainerOutside = (e: React.MouseEvent<HTMLElement>): void => {
     if (e.target === containerRef.current) dispatch(setShowCart());
   };
-  const closeContainer = (): void => {
-    dispatch(setShowCart());
-  };
-  const handleCheckout = (): void => {
-    dispatch(immediateCheckout(items));
-  };
+  const closeContainer = () => dispatch(setShowCart());
+
+  const handleCheckout = () => dispatch(immediateCheckout(items));
 
   return (
     <div
@@ -33,11 +27,9 @@ const Cart: React.FC = () => {
       onClick={closeContainerOutside}
     >
       <div className={classes.cart_main}>
-        <section className={classes.options}>
-          <button ref={closeRef} onClick={closeContainer}>
-            <MdClose />
-          </button>
-        </section>
+        <button onClick={closeContainer} className={classes.cart__close}>
+          <MdClose />
+        </button>
 
         <section
           className={`${classes.list} ${
@@ -60,10 +52,9 @@ const Cart: React.FC = () => {
 
         <section className={classes.purchase}>
           <span>Total: ${totalPrice}</span>
-          <button onClick={handleCheckout}>Go to checkout</button>
-          <button ref={shoppingRef} onClick={closeContainer}>
-            Keep shopping
-          </button>
+          <div className={classes.purchase__btns}>
+            <button onClick={handleCheckout}>Checkout</button>
+          </div>
         </section>
       </div>
     </div>

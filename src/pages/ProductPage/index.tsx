@@ -230,7 +230,7 @@ const ProductPage: React.FC = () => {
               ) : null}
             </div>
 
-            <div className={classes.description}>{product.description}</div>
+            <p className={classes.description}>{product.description}</p>
 
             {product.sizes.length || product.sizesShoes.length ? (
               <div className={classes.sizes_container}>

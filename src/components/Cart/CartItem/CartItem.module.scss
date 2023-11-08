@@ -3,27 +3,36 @@
 
 .item {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   gap: 15px;
   @media screen and (max-width: $screen-phone) {
     gap: 10px;
+    flex-direction: row;
   }
 
   &_img {
-    width: 130px;
-    height: 185px;
+    width: 90%;
+    height: 205px;
     -o-object-fit: cover;
     object-fit: cover;
 
     @media screen and (max-width: $screen-phone) {
-      width: 115px;
+      width: 150px;
+      min-width: 150px;
       height: 150px;
+      object-fit: contain;
     }
   }
 
   &_details {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 10px;
     @include textStyle($main-font, 20px, 500, $brown-dark);
 
@@ -41,8 +50,9 @@
 
   &_price {
     font-size: 20px;
-    @media screen and (max-width: $screen-phone) {
-      font-size: 18px;
+    @media screen and (max-width: $screen-desktop) {
+      width: 100%;
+      text-align: center;
     }
   }
 
@@ -62,22 +72,31 @@
   }
 
   &_quantity {
-    margin: 0 0 0 auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 0 35px;
+    width: 100%;
     @include textStyle($main-font, 16px, 500, $brown-dark);
 
+    @media screen and (max-width: $screen-phone) {
+      padding: 0;
+    }
+
     &_controls {
+      width: 100%;
       display: flex;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
+      // gap: 20px;
       font-size: 20px;
       font-family: $body-font;
 
       button {
-        background: $grey-light;
+        background: $brown;
+        // background: $grey-light;
         width: 25px;
         height: 25px;
         display: flex;
@@ -86,7 +105,8 @@
         font-size: 26px;
         border-radius: 10%;
         box-shadow: $shadow-2px;
-        color: $brown;
+        color: $grey-light;
+        // color: $brown;
         transition: all 0.3s ease;
         border: 1px solid rgba(0, 0, 0, 0);
 

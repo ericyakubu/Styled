@@ -42,4 +42,9 @@
       }
     }
   }
+
+  @media screen and (max-width: $screen-desktop) {
+    position: relative;
+    transform: translate(-50%, 0);
+  }
 }

@@ -2,7 +2,7 @@
 @import "../../styles/variables.scss";
 
 .container {
-  padding: 0 min(100px, 10vw);
+  padding: 0 min(100px, 5vw);
   .title {
     text-align: center;
     @include textStyle($main-font, 20px, 700, $brown-dark);

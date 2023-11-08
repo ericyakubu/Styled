@@ -11,18 +11,15 @@ interface Props {
 const CartItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
 
-  const handleIncreaseQuantity = (item: CartItemType) => {
+  const handleIncreaseQuantity = (item: CartItemType) =>
     dispatch(increaseQuantity(item));
-  };
-  const handleDecreaseQuantity = (item: CartItemType) => {
+  const handleDecreaseQuantity = (item: CartItemType) =>
     dispatch(decreaseQuantity(item));
-  };
 
   return (
     <div className={classes.item}>
       <img src={item.imageCover} alt={item.name} className={classes.item_img} />
       <div className={classes.item_details}>
-        <h4 className={classes.item_name}>{item.name}</h4>
         <h5 className={classes.item_price}>${item.price}</h5>
         {item.size ? (
           <h5 className={classes.item_size}>
@@ -32,7 +29,6 @@ const CartItem: React.FC<Props> = ({ item }) => {
       </div>
 
       <div className={classes.item_quantity}>
-        Quantity{" "}
         <div className={classes.item_quantity_controls}>
           <button onClick={() => handleDecreaseQuantity(item)}>-</button>
           {item.quantity}
