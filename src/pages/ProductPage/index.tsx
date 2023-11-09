@@ -9,6 +9,7 @@ import { CartItemType } from "../../types";
 import { addToCart } from "../../redux/cart";
 import { Sizes, SizesShoes } from "../../constants";
 import { immediateCheckout } from "../../redux/cart/asyncActions";
+import { toast } from "react-toastify";
 
 const ProductPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -70,6 +71,16 @@ const ProductPage: React.FC = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
+    toast.success("Added to your cart!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
     product.sizes.length || product.sizesShoes.length
       ? dispatch(addToCart(cart))
       : dispatch(addToCart([newCartItem]));

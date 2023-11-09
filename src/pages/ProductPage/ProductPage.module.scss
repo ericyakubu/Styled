@@ -3,20 +3,19 @@
 
 .container {
   display: flex;
-  padding: min(10vh, 100px) min(5vw, 100px);
+  padding: min(5vh, 100px) min(5vw, 100px);
   gap: 25px;
   max-width: 100vw;
   overflow-x: hidden;
 
-  @media screen and (max-width: $screen-phone) {
-    padding: 40px 5vw;
-    gap: 10px;
-    flex-direction: column;
-  }
-
   @media screen and (max-width: $screen-desktop) {
     width: 100%;
     padding: min(10vh, 100px) 3vw;
+  }
+  @media screen and (max-width: $screen-phone) {
+    padding: 20px 5vw;
+    gap: 10px;
+    flex-direction: column;
   }
 }
 
@@ -80,13 +79,12 @@
   flex-direction: column;
   gap: 20px;
   position: relative;
-
-  @media screen and (max-width: $screen-phone) {
-    gap: 10px;
-  }
-
   @media screen and (max-width: $screen-desktop) {
     width: calc(50% - 6vw);
+  }
+  @media screen and (max-width: $screen-phone) {
+    gap: 10px;
+    width: 100%;
   }
 }
 
@@ -142,6 +140,9 @@
     background: $brown-dark;
 
     @media screen and (max-width: $screen-phone) {
+      width: 200px;
+      min-width: 200px;
+      max-width: 200px;
       margin-top: 5px;
     }
   }

@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import Pagination from "../Pagination";
 import Menu from "../Menu";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -15,6 +17,7 @@ const Layout: React.FC = () => {
   const { openMenu } = useSelector((state: RootState) => state.menu);
   return (
     <>
+      <ToastContainer />
       <Header />
       {showCart && <Cart />}
       <main>
